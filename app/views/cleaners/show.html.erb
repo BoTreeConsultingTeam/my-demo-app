@@ -15,5 +15,12 @@
   <%= @cleaner.quality_score %>
 </p>
 
+<p>
+  <strong>Works in City(s):</strong><br>
+  <% @cleaner.cities.each do |city| %>
+    <%= "#{city.name}" %><br>
+  <% end %>
+</p>
+
 <%= link_to 'Edit', edit_cleaner_path(@cleaner) %> |
 <%= link_to 'Back', cleaners_path %>

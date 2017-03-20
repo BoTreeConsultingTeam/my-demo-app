@@ -12,6 +12,11 @@
   <% end %>
 
   <div class="field">
+    <%= label_tag :Works_in %><br>
+    <%= collection_check_boxes(:cleaner, :city_ids, City.Active, :id, :name)  %>
+
+  </div>
+  <div class="field">
     <%= f.label :first_name %><br>
     <%= f.text_field :first_name %>
   </div>
