@@ -1,6 +1,7 @@
 class CleanersController < ApplicationController
   before_action :set_cleaner, only: [:show, :edit, :update, :destroy]
 
+  before_action :authenticate_admin!
   # GET /cleaners
   # GET /cleaners.json
   def index

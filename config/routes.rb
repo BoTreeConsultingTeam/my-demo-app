@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   root 'customers#new'
 
+  devise_for :admins
 
   resources :bookings
   resources :cleaners

@@ -24,7 +24,7 @@
     <%= f.text_field :phone_number %>
   </div>
   <div>
-    <h3>Schedule you booking</h3>
+    <h2>Schedule you booking</h2>
   </div>
   <div class="field">
     <%= collection_select(:customer, :city_id, City.Active, :id, :name, { prompt: "Select your City"}) %>
