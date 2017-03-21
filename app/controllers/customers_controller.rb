@@ -24,17 +24,48 @@ class CustomersController < ApplicationController
   # POST /customers
   # POST /customers.json
   def create
-    @customer = Customer.new(customer_params)
-
+    result = false
+    if is_customer_exist(params[:customer][:phone_number])
+      @customer = Customer.find_by(params[:customer][:phone_number])
+      customer_id = @customer.id
+      result = true
+    else
+      @customer = Customer.new(customer_params)
+      @customer.save
+      customer_id = @customer.id
+      result = true
+    end
+    msg = assign_cleaner(customer_id,params[:customer][:city_id],params[:customer][:date])
     respond_to do |format|
-      if @customer.save
-        format.html { redirect_to @customer, notice: 'Customer was successfully created.' }
+      if result
+        format.html { redirect_to @customer, notice: msg }
         format.json { render :show, status: :created, location: @customer }
       else
         format.html { render :new }
         format.json { render json: @customer.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def is_customer_exist(customers_phone_number)
+    Customer.find_by('phone_number = ?',customers_phone_number)
+  end
+
+  def assign_cleaner(customer_id,customers_city_id,customers_date)
+    byebug
+    cleaners = City.find(customers_city_id).cleaner
+    byebug
+    cleaners.each do |cleaner|
+      if Booking.where('cleaner_id = ?',cleaner).where('date = ?',customers_date).count == 0
+        Booking.create(cleaner_id: cleaner.id,customer_id: customer_id,date: customers_date)
+        byebug
+        return "Dear Customer, Your home cleaning duty is assign to #{cleaner.first_name} #{cleaner.last_name}
+          on the date #{customers_date}."
+      end
+    end
+    "Dear Customer, Sorry to inform you that becase of heavy booking their
+      are no any cleaner available in you city for date #{customers_date}
+      you choose. Please try for another date"
   end
 
   # PATCH/PUT /customers/1

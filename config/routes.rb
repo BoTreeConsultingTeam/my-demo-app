@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
-  root 'bookings#index'
+  root 'customers#new'
+
 
   resources :bookings
   resources :cleaners

@@ -23,6 +23,16 @@
     <%= f.label :phone_number %><br>
     <%= f.text_field :phone_number %>
   </div>
+  <div>
+    <h3>Schedule you booking</h3>
+  </div>
+  <div class="field">
+    <%= collection_select(:customer, :city_id, City.Active, :id, :name, { prompt: "Select your City"}) %>
+  </div>
+  <div class="field">
+    <%= f.label :select_date %><br>
+    <%= f.date_field :date  %>
+  </div>
   <div class="actions">
     <%= f.submit %>
   </div>
