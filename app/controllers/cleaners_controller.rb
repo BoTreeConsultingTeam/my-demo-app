@@ -15,7 +15,7 @@ class CleanersController < ApplicationController
 
   # GET /cleaners/new
   def new
-    @cities = City.all
+    @cleaner = Cleaner.new
   end
 
   # GET /cleaners/1/edit
@@ -26,11 +26,11 @@ class CleanersController < ApplicationController
   # POST /cleaners.json
   def create
     @cleaner = Cleaner.new(cleaner_params)
-
+    @cityId = params[:cleaner][:city_ids]
     respond_to do |format|
       if @cleaner.save
-        @cities.each do |i|
-          CleanerCity.create(cleaner_id: @cleaner.id, city_id: i.id)
+        @cityId.each do |i|
+          CleanerCity.create(cleaner_id: @cleaner.id, city_id: i)
         end
         format.html { redirect_to @cleaner, notice: 'Cleaner was successfully created.' }
         format.json { render :show, status: :created, location: @cleaner }
@@ -73,6 +73,6 @@ class CleanersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def cleaner_params
-      params.require(:cleaner).permit(:first_name, :last_name, :quality_score)
+      params.require(:cleaner).permit(:first_name, :last_name, :quality_score, :city_ids)
     end
 end

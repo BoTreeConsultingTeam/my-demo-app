@@ -10,7 +10,7 @@
       </ul>
     </div>
   <% end %>
-
+  <%= f.collection_check_boxes :city_ids, City.all, :id, :city_name %>
   <div class="field">
     <%= f.label :first_name %><br>
     <%= f.text_field :first_name %>

@@ -1,6 +1,5 @@
 class CustomersController < ApplicationController
   before_action :set_customer, only: [:show, :edit, :update, :destroy]
-  before_action :check_presence
   # GET /customers
   # GET /customers.json
   def index
@@ -28,7 +27,7 @@ class CustomersController < ApplicationController
     @customer = Customer.new(customer_params)
     respond_to do |format|
       if @customer.save
-        format.html { redirect_to @customer, notice: 'Customer was successfully created.' }
+        format.html { redirect_to @customer, notice: 'successfully created.' }
         format.json { render :show, status: :created, location: @customer }
       else
         format.html { render :new }
@@ -66,15 +65,12 @@ class CustomersController < ApplicationController
     def set_customer
       @customer = Customer.find(params[:id])
     end
-
+    def add_bookings
+      
+    end
     # Never trust parameters from the scary internet, only allow the white list through.
     def customer_params
       params.require(:customer).permit(:first_name, :last_name, :phone_number, :date, :city_id)
     end
 
-    def check_presence
-       if Customer.exists?(params[:phone_number])
-         redirect_to @customers
-       end
-    end
 end

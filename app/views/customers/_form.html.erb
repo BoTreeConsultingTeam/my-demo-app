@@ -22,6 +22,9 @@
     <%= f.label :phone_number %><br>
     <%= f.text_field :phone_number %>
   </div>
+
+  <%= collection_select(:customer_city, :id,
+    City.all, :id, :city_name, { include_blank: 'City' } ) %>
   <div class="field">
     <%= f.label :DateTime %><br>
     <%= f.datetime_select :date %>
