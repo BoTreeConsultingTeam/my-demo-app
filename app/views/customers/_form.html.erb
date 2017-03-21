@@ -2,7 +2,6 @@
   <% if @customer.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@customer.errors.count, "error") %> prohibited this customer from being saved:</h2>
-
       <ul>
       <% @customer.errors.full_messages.each do |message| %>
         <li><%= message %></li>
@@ -23,7 +22,11 @@
     <%= f.label :phone_number %><br>
     <%= f.text_field :phone_number %>
   </div>
+  <div class="field">
+    <%= f.label :DateTime %><br>
+    <%= f.datetime_select :date %>
+  </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit "submit" %>
   </div>
 <% end %>

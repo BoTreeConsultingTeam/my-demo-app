@@ -1,4 +1,14 @@
 Rails.application.routes.draw do
+  get 'cleanercities/edit'
+
+  get 'cleanercities/update'
+
+  get 'cleanercities/destroy'
+
+  get 'cities/new'
+
+  get 'cities/index'
+
   root 'bookings#index'
 
   resources :bookings

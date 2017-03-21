@@ -1,5 +1,9 @@
 <h1>New Cleaner</h1>
-
+<% @cities.each do |city| %>
+  <%= check_box_tag "cities[]", city.id %> <%= city.city_name %>
+<% end %>
+<% @cities.each do |city| %>
+  <%= check_box_tag "cities[]", city.id %> <%= city.city_name %>
+<% end %>
 <%= render 'form' %>
-
 <%= link_to 'Back', cleaners_path %>
