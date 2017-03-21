@@ -9,10 +9,10 @@
 <body>
 
 <%= link_to 'Home', root_path %>
-<%= link_to 'Bookings', bookings_path %>
-<%= link_to 'Customers', customers_path %>
-<%= link_to 'Cleaners', cleaners_path %>
 <% if current_admin %>
+  <%= link_to 'Bookings', bookings_path %>
+  <%= link_to 'Customers', customers_path %>
+  <%= link_to 'Cleaners', cleaners_path %>
   <%= link_to 'Admin Sign Out', destroy_admin_session_path, method: :delete %>
 <% else %>
   <%= link_to 'Admin Sign In', new_admin_session_path %>

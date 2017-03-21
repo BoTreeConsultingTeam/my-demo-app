@@ -54,7 +54,11 @@ class CustomersController < ApplicationController
     cleaners = City.find(customers_city_id).cleaner
     cleaners.each do |cleaner|
       if Booking.where('cleaner_id = ?',cleaner).where('date = ?',customers_date).count == 0
+
         Booking.create(cleaner_id: cleaner.id,customer_id: customer_id,date: customers_date)
+        byebug
+        UserEmail.send_lead_to_cleaner(cleaner.email).deliver
+
         return "Dear Customer, Your home cleaning duty is assign to #{cleaner.first_name} #{cleaner.last_name}
           on the date #{customers_date}."
       end
