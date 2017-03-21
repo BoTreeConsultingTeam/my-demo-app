@@ -10,7 +10,6 @@ class CitiesController < ApplicationController
   def create
   @city = City.new(city_params)
     if @result = @city.save
-      create_city
     else
       render :action => "index"
     end

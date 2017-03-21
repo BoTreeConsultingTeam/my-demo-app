@@ -15,7 +15,6 @@ class CleanersController < ApplicationController
 
   # GET /cleaners/new
   def new
-    @cleaner = Cleaner.new
     @cities = City.all
   end
 
@@ -27,11 +26,11 @@ class CleanersController < ApplicationController
   # POST /cleaners.json
   def create
     @cleaner = Cleaner.new(cleaner_params)
-    @city_id = [:cleaner][:cities]
+
     respond_to do |format|
       if @cleaner.save
-        
-
+        @cities.each do |i|
+          CleanerCity.create(cleaner_id: @cleaner.id, city_id: i.id)
         end
         format.html { redirect_to @cleaner, notice: 'Cleaner was successfully created.' }
         format.json { render :show, status: :created, location: @cleaner }

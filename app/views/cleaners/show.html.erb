@@ -9,14 +9,6 @@
   <strong>Last name:</strong>
   <%= @cleaner.last_name %>
 </p>
-
-<p>
-  <strong>City</strong>
-    <% @cleaner.cities do |city|  %>
-      <%= city.city_name %>
-    <% end %>
-</p>
-
 <p>
   <strong>Quality score:</strong>
   <%= @cleaner.quality_score %>

@@ -1,5 +1,6 @@
 class CustomersController < ApplicationController
   before_action :set_customer, only: [:show, :edit, :update, :destroy]
+  before_action :check_presence
   # GET /customers
   # GET /customers.json
   def index
@@ -71,4 +72,9 @@ class CustomersController < ApplicationController
       params.require(:customer).permit(:first_name, :last_name, :phone_number, :date, :city_id)
     end
 
+    def check_presence
+       if Customer.exists?(params[:phone_number])
+         redirect_to @customers
+       end
+    end
 end
