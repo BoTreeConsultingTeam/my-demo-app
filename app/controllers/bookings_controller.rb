@@ -1,5 +1,6 @@
 class BookingsController < ApplicationController
   before_action :set_booking, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_admin, only: [:index]
 
   # GET /bookings
   # GET /bookings.json
@@ -26,29 +27,30 @@ class BookingsController < ApplicationController
   # POST /bookings.json
   def create
     @cities = City.all
+    @customer = current_admin
     @booking = Booking.new(customer_city_id: params["city_id"])
-
-    @booking.cleaning_complete = DateTime.new(params[:booking]["date(1i)"].to_i,
-                            params[:booking]["date(2i)"].to_i,
-                            params[:booking]["date(3i)"].to_i,
-                            params[:booking]["date(4i)"].to_i,
-                            params[:booking]["date(5i)"].to_i)
+    @booking.cleaning_start = DateTime.new(params[:customer][:booking]["date(1i)"].to_i, params[:customer][:booking]["date(2i)"].to_i, params[:customer][:booking]["date(3i)"].to_i, params[:customer][:booking]["date(4i)"].to_i, params[:customer][:booking]["date(5i)"].to_i)
     @cleaners = City.find(@booking.customer_city_id).cleaners
+    @booking.customer_id = @customer.id
     @cleaners.each do |cleaner|
-      respond_to do |format|
-        if cleaner.date.nil? || cleaner.date == @booking.cleaning_complete
-          cleaner.update_attribute(:date, @booking.cleaning_complete)
+        if cleaner.date.nil? || cleaner.date <= @booking.cleaning_start
+          cleaner.update_attribute(:date, @booking.cleaning_start + 2.hours )
           @booking.cleaner_id = cleaner.id
             if @booking.save
-              format.html { redirect_to @booking, notice: 'Booking was successfully created.' }
-              format.json { render :show, status: :created, location: @booking }
+              format.html { redirect_to @customer, notice: "Account Created, Cleaner name: #{Cleaner.find(@booking.cleaner_id).first_name}" }
+              format.json { render :show, status: :created, location: @customer }
+              ExampleMailer.sample_email(cleaner).deliver
+              break
+            else
+              format.html { redirect_to @customer, notice: "Account created, Sorry We cant Help you " }
+              format.json { render :show, status: :created, location: @customer }
               break
             end
         else
-          format.html { render :new }
-          format.json { render json: @booking.errors, status: :unprocessable_entity }
+          format.html { redirect_to @customer, notice: "Account Created, Sorry We cant Help you " }
+          format.json { render :show, status: :created, location: @customer }
+          break
         end
-      end
     end
   end
 

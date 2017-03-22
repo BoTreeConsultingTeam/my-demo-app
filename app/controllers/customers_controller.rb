@@ -1,5 +1,7 @@
 class CustomersController < ApplicationController
   before_action :set_customer, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_admin, only: [:index]
+
 
   # GET /customers
   # GET /customers.json
@@ -84,7 +86,7 @@ class CustomersController < ApplicationController
                     break
                   end
               else
-                format.html { redirect_to @customer, notice: "Account Exist1, Sorry We cant Help you " }
+                format.html { redirect_to @customer, notice: "Account Exist, Sorry We cant Help you " }
                 format.json { render :show, status: :created, location: @customer }
               end
           end

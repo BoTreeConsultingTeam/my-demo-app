@@ -1,5 +1,6 @@
 class CleanersController < ApplicationController
   before_action :set_cleaner, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_admin
 
   # GET /cleaners
   # GET /cleaners.json
@@ -26,6 +27,7 @@ class CleanersController < ApplicationController
   # POST /cleaners
   # POST /cleaners.json
   def create
+    @cities = City.all
     @cleaner = Cleaner.new(cleaner_params)
     respond_to do |format|
       if @cleaner.save

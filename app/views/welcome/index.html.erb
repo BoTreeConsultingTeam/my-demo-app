@@ -2,14 +2,17 @@
   <div class="field">
     <%= f.label :first_name %><br>
     <%= f.text_field :first_name %>
+    <%= @customer.errors.full_messages_for(:name)[0] %>
   </div>
   <div class="field">
     <%= f.label :last_name %><br>
     <%= f.text_field :last_name %>
+    <%= @customer.errors.full_messages_for(:name)[0] %>
   </div>
   <div class="field">
     <%= f.label :phone_number %><br>
     <%= f.text_field :phone_number %>
+    <%= @customer.errors.full_messages_for(:name)[0] %>
   </div>
 
   <%= f.fields_for (:booking) do |b| %>
@@ -18,7 +21,7 @@
     <%= b.label :Enter_cleaning_complete_time %><br>
     <%= b.datetime_select :date %>
   </div>
-  
+
   <div class="field">
     <%= b.label :City %><br>
     <%= select_tag 'city_id',
