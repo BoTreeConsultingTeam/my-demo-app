@@ -26,6 +26,7 @@ class CleanersController < ApplicationController
   # POST /cleaners.json
   def create
     @cleaner = Cleaner.new(cleaner_params)
+    @cleaner.confirm_token = SecureRandom.hex(32)
     respond_to do |format|
       if @cleaner.save
 
@@ -41,6 +42,20 @@ class CleanersController < ApplicationController
         format.json { render json: @cleaner.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def confirm_token
+    @cleaner = Cleaner.find_by(confirm_token: params[:token])
+    if @cleaner
+      @cleaner.update!(email_confirmed: true, confirm_token: nil)
+      respond_to do |format|
+        format.html { redirect_to 'confirm_token', notice: "Confirmation Completed" }
+      end
+    end
+  end
+
+  def confirmed
+    # empty
   end
 
   def add_cities(cleaner_id)
@@ -82,6 +97,6 @@ class CleanersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def cleaner_params
-      params.require(:cleaner).permit(:first_name, :last_name, :quality_score, :city_ids,:email)
+      params.require(:cleaner).permit(:first_name, :last_name, :quality_score, :city_ids, :email)
     end
 end

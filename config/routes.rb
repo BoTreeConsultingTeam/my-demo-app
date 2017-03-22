@@ -4,7 +4,11 @@ Rails.application.routes.draw do
   devise_for :admins
 
   resources :bookings
-  resources :cleaners 
+
+  resources :cleaners do
+    get 'confirm_token/:token' => 'cleaners#confirm_token', as: 'confirm_email'
+  end
+
 
   resources :customers
   # The priority is based upon order of creation: first created -> highest priority.

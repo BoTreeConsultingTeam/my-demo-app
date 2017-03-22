@@ -2,9 +2,9 @@ Dear Cleaner,
 
   Congratulation...!!!<br>
 
-  Now you are the part of the HomeWork and after confirmation
+  Now you are the part of the <h2>HomeWork</h2> and after confirmation
   of your email address you get leads from us.<br>
 
-  To confirm your email click below link<br><br>
+  To confirm your account click link below...<br><br>
 
-  <%= link_to "confirm_email", root_url %>
+  <%= link_to "Confirm Email",cleaner_confirm_email_url(@cleaner.id,token: @cleaner.confirm_token)  %>
