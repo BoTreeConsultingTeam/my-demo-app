@@ -12,17 +12,17 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :customer_id %><br>
-    <%= f.text_field :customer_id %>
+    <%= f.label :City %><br>
+    <%= select_tag 'city_id',
+    options_for_select(@cities.collect{ |i| [i.name, i.id]}),
+    onchange: "test()" %>
   </div>
+
   <div class="field">
-    <%= f.label :cleaner_id %><br>
-    <%= f.text_field :cleaner_id %>
+    <%= f.label :Enter_cleaning_complete_time %><br>
+    <%= f.datetime_select :date %>
   </div>
-  <div class="field">
-    <%= f.label :date %><br>
-    <%= f.date_select :date %>
-  </div>
+
   <div class="actions">
     <%= f.submit %>
   </div>

@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
-  root 'bookings#index'
+
+  devise_for :admins, controllers: { sessions: 'admin/sessions', registrations: 'admin/registrations' }
+  get 'welcome/index'
+
+  root 'welcome#index'
 
   resources :bookings
   resources :cleaners

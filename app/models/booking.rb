@@ -1,4 +1,6 @@
 class Booking < ActiveRecord::Base
-  belongs_to :customer
-  belongs_to :cleaner
+
+  validates :customer_city_id, :presence => true
+  validates :cleaning_start, :presence => true
+
 end

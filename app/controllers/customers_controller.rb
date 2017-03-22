@@ -10,6 +10,7 @@ class CustomersController < ApplicationController
   # GET /customers/1
   # GET /customers/1.json
   def show
+    @bookings = Booking.where(customer_id: params[:id])
   end
 
   # GET /customers/new
@@ -23,16 +24,74 @@ class CustomersController < ApplicationController
 
   # POST /customers
   # POST /customers.json
+
   def create
     @customer = Customer.new(customer_params)
-
+    @cities = City.all
     respond_to do |format|
-      if @customer.save
-        format.html { redirect_to @customer, notice: 'Customer was successfully created.' }
-        format.json { render :show, status: :created, location: @customer }
+      if @customer.valid?
+        @booking = Booking.new(customer_city_id: params["city_id"])
+        @booking.cleaning_start = DateTime.new(params[:customer][:booking]["date(1i)"].to_i, params[:customer][:booking]["date(2i)"].to_i, params[:customer][:booking]["date(3i)"].to_i, params[:customer][:booking]["date(4i)"].to_i, params[:customer][:booking]["date(5i)"].to_i)
+        @cleaners = City.find(@booking.customer_city_id).cleaners
+        @booking.customer_id = @customer.id
+        @cleaners.each do |cleaner|
+            if cleaner.date.nil? || cleaner.date <= @booking.cleaning_start
+              cleaner.update_attribute(:date, @booking.cleaning_start + 2.hours )
+              @booking.cleaner_id = cleaner.id
+                if @booking.save
+                  format.html { redirect_to @customer, notice: "Account Created, Cleaner name: #{Cleaner.find(@booking.cleaner_id).first_name}" }
+                  format.json { render :show, status: :created, location: @customer }
+                  ExampleMailer.sample_email(cleaner).deliver
+                  break
+                else
+                  format.html { redirect_to @customer, notice: "Account created, Sorry We cant Help you " }
+                  format.json { render :show, status: :created, location: @customer }
+                  break
+                end
+            else
+              format.html { redirect_to @customer, notice: "Account Created, Sorry We cant Help you " }
+              format.json { render :show, status: :created, location: @customer }
+              break
+            end
+        end
+        if @customer.save
+
+        else
+          format.html { render welcome_index_path }
+          format.json { render json: @customer.errors, status: :unprocessable_entity }
+        end
       else
-        format.html { render :new }
-        format.json { render json: @customer.errors, status: :unprocessable_entity }
+        @exist = Customer.where(phone_number: @customer.phone_number)
+        if @exist.count > 0
+          @customer = @exist.first
+          @cities = City.all
+          @booking = Booking.new(customer_city_id: params["city_id"])
+          @booking.cleaning_start = DateTime.new(params[:customer][:booking]["date(1i)"].to_i, params[:customer][:booking]["date(2i)"].to_i, params[:customer][:booking]["date(3i)"].to_i, params[:customer][:booking]["date(4i)"].to_i, params[:customer][:booking]["date(5i)"].to_i)
+          @cleaners = City.find(@booking.customer_city_id).cleaners
+          @booking.customer_id = @customer.id
+          @cleaners.each do |cleaner|
+              if cleaner.date.nil? || cleaner.date <= @booking.cleaning_start
+                cleaner.update_attribute(:date, @booking.cleaning_start + 2.hours )
+                @booking.cleaner_id = cleaner.id
+                  if @booking.save
+                    format.html { redirect_to @customer, notice: "Account Exist, Cleaner name:#{Cleaner.find(@booking.cleaner_id).first_name}"  }
+                    format.json { render :show, status: :created, location: @customer }
+                    ExampleMailer.sample_email(cleaner, @customer).deliver
+                    break
+                  else
+                    format.html { redirect_to @customer, notice: "Account Exist, Sorry We cant Help you " }
+                    format.json { render :show, status: :created, location: @customer }
+                    break
+                  end
+              else
+                format.html { redirect_to @customer, notice: "Account Exist1, Sorry We cant Help you " }
+                format.json { render :show, status: :created, location: @customer }
+              end
+          end
+        else
+          format.html { render welcome_index_path }
+          format.json { render json: @customer.errors, status: :unprocessable_entity }
+        end
       end
     end
   end
@@ -69,6 +128,6 @@ class CustomersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def customer_params
-      params.require(:customer).permit(:first_name, :last_name, :phone_number)
+      params.require(:customer).permit(:first_name, :last_name, :phone_number, :booking)
     end
 end

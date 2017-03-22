@@ -1,5 +1,4 @@
 <p id="notice"><%= notice %></p>
-
 <p>
   <strong>First name:</strong>
   <%= @customer.first_name %>
@@ -17,3 +16,26 @@
 
 <%= link_to 'Edit', edit_customer_path(@customer) %> |
 <%= link_to 'Back', customers_path %>
+<h1>Listing Bookings</h1>
+
+<table border = 1 >
+  <thead>
+    <tr>
+      <th>Cleaner name</th>
+      <th>Requested at:</th>
+      <th>Cleaned at:</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @bookings.each do |booking| %>
+      <tr>
+        <td><%= Cleaner.find(booking.cleaner_id).first_name %></td>
+        <td><%= booking.created_at %></td>
+        <td><%= booking.cleaning_start + 2.hours %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>

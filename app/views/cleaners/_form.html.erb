@@ -20,9 +20,21 @@
     <%= f.text_field :last_name %>
   </div>
   <div class="field">
+    <%= f.label :email %><br>
+    <%= f.text_field :email %>
+  </div>
+  <div class="field">
     <%= f.label :quality_score %><br>
     <%= f.text_field :quality_score %>
   </div>
+  <div class="field">
+    <%= f.label :cities %><br>
+      <% @cities.each do |city| %>
+        <%= check_box_tag 'city_ids[]', city.id -%>
+        <%= h city.name -%>
+      <% end %>
+  </div>
+  <br>
   <div class="actions">
     <%= f.submit %>
   </div>

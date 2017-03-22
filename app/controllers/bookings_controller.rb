@@ -15,6 +15,7 @@ class BookingsController < ApplicationController
   # GET /bookings/new
   def new
     @booking = Booking.new
+    @cities = City.all
   end
 
   # GET /bookings/1/edit
@@ -24,15 +25,29 @@ class BookingsController < ApplicationController
   # POST /bookings
   # POST /bookings.json
   def create
-    @booking = Booking.new(booking_params)
+    @cities = City.all
+    @booking = Booking.new(customer_city_id: params["city_id"])
 
-    respond_to do |format|
-      if @booking.save
-        format.html { redirect_to @booking, notice: 'Booking was successfully created.' }
-        format.json { render :show, status: :created, location: @booking }
-      else
-        format.html { render :new }
-        format.json { render json: @booking.errors, status: :unprocessable_entity }
+    @booking.cleaning_complete = DateTime.new(params[:booking]["date(1i)"].to_i,
+                            params[:booking]["date(2i)"].to_i,
+                            params[:booking]["date(3i)"].to_i,
+                            params[:booking]["date(4i)"].to_i,
+                            params[:booking]["date(5i)"].to_i)
+    @cleaners = City.find(@booking.customer_city_id).cleaners
+    @cleaners.each do |cleaner|
+      respond_to do |format|
+        if cleaner.date.nil? || cleaner.date == @booking.cleaning_complete
+          cleaner.update_attribute(:date, @booking.cleaning_complete)
+          @booking.cleaner_id = cleaner.id
+            if @booking.save
+              format.html { redirect_to @booking, notice: 'Booking was successfully created.' }
+              format.json { render :show, status: :created, location: @booking }
+              break
+            end
+        else
+          format.html { render :new }
+          format.json { render json: @booking.errors, status: :unprocessable_entity }
+        end
       end
     end
   end
@@ -55,8 +70,9 @@ class BookingsController < ApplicationController
   # DELETE /bookings/1.json
   def destroy
     @booking.destroy
+    @customer = Customer.find(params[:id])
     respond_to do |format|
-      format.html { redirect_to bookings_url, notice: 'Booking was successfully destroyed.' }
+      format.html { redirect_to customer_path(@customer), notice: 'Booking was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -69,6 +85,6 @@ class BookingsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def booking_params
-      params.require(:booking).permit(:customer_id, :cleaner_id, :date)
+      params.require(:booking).permit(:cleaning_start, :city, :cleaning_complete)
     end
 end
