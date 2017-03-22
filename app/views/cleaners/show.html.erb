@@ -1,5 +1,6 @@
 <p id="notice"><%= notice %></p>
 
+<h3>Profile</h3> <br><br>
 <p>
   <strong>First name:</strong>
   <%= @cleaner.first_name %>
@@ -22,5 +23,5 @@
   <% end %>
 </p>
 
-<%= link_to 'Edit', edit_cleaner_path(@cleaner) %> |
-<%= link_to 'Back', cleaners_path %>
+<%= link_to 'Edit', edit_cleaner_path(@cleaner), class: "btn btn-default btn-sm" %>&nbsp&nbsp
+<%= link_to 'Back', cleaners_path, class: "btn btn-default btn-sm" %>

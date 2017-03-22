@@ -1,29 +1,32 @@
-<p id="notice"><%= notice %></p>
-<p>
-  <strong>First name:</strong>
-  <%= @customer.first_name %>
-</p>
+<p align="center" id="notice"><%= notice %></p>
 
-<p>
-  <strong>Last name:</strong>
-  <%= @customer.last_name %>
-</p>
+  <h3>Profile</h3> <br><br>
+  <p>
+    <strong>First name:</strong>
+    <%= @customer.first_name %>
+  </p>
 
-<p>
-  <strong>Phone number:</strong>
-  <%= @customer.phone_number %>
-</p>
+  <p>
+    <strong>Last name:</strong>
+    <%= @customer.last_name %>
+  </p>
 
-<%= link_to 'Edit', edit_customer_path(@customer) %> |
-<%= link_to 'Back', customers_path %>
-<h1>Listing Bookings</h1>
+  <p>
+    <strong>Phone number:</strong>
+    <%= @customer.phone_number %>
+  </p>
 
-<table border = 1 >
-  <thead>
+  <%= link_to 'Edit', edit_customer_path(@customer), class: "btn btn-default btn-sm" %>
+
+  <h3>My Bookings</h3>
+
+<table class="table" >
+  <thead class="thead-default">
     <tr>
       <th>Cleaner name</th>
-      <th>Requested at:</th>
-      <th>Cleaned at:</th>
+      <th>Cleaner Email</th>
+      <th>Start</th>
+      <th>Finish</th>
     </tr>
   </thead>
 
@@ -31,9 +34,13 @@
     <% @bookings.each do |booking| %>
       <tr>
         <td><%= Cleaner.find(booking.cleaner_id).first_name %></td>
+        <td><%= Cleaner.find(booking.cleaner_id).email %></td>
         <td><%= booking.created_at %></td>
         <td><%= booking.cleaning_start + 2.hours %></td>
       </tr>
     <% end %>
   </tbody>
+
 </table>
+<br>
+<br>

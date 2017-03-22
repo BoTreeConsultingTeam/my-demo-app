@@ -1,33 +1,43 @@
+<div class="form-horizontal">
 <%= form_for(@cleaner) do |f| %>
-  <div class="field">
-    <%= f.label :first_name %><br>
-    <%= f.text_field :first_name %>
+  <div class="form-group">
+    <%= f.label :first_name, class: "col-sm-offset-2 col-sm-2 control-label"  %>
+    <div class = "col-sm-5">
+    <%= f.text_field :first_name, class: "form-control"  %>
+  </div>
     <%= @cleaner.errors.full_messages_for(:name)[0] %>
   </div>
-  <div class="field">
-    <%= f.label :last_name %><br>
-    <%= f.text_field :last_name %>
+  <div class="form-group">
+    <%= f.label :last_name, class: "col-sm-offset-2 col-sm-2 control-label"  %>
+    <div class = "col-sm-5">
+    <%= f.text_field :last_name, class: "form-control"  %>
+  </div>
     <%= @cleaner.errors.full_messages_for(:name)[0] %>
   </div>
-  <div class="field">
-    <%= f.label :email %><br>
-    <%= f.text_field :email %>
+  <div class="form-group">
+    <%= f.label :email, class: "col-sm-offset-2 col-sm-2 control-label"  %>
+    <div class = "col-sm-5">
+    <%= f.text_field :email, class: "form-control"  %>
+  </div>
     <%= @cleaner.errors.full_messages_for(:name)[0] %>
   </div>
-  <div class="field">
-    <%= f.label :quality_score %><br>
-    <%= f.text_field :quality_score %>
+  <div class="form-group">
+    <%= f.label :quality_score, class: "col-sm-offset-2 col-sm-2 control-label"  %>
+    <div class = "col-sm-5">
+    <%= f.text_field :quality_score, class: "form-control"  %>
+  </div>
     <%= @cleaner.errors.full_messages_for(:name)[0] %>
   </div>
-  <div class="field">
-    <%= f.label :cities %><br>
+  <div class="form-group">
+    <%= f.label :cities, class: "col-sm-offset-2 col-sm-2 control-label"  %>
       <% @cities.each do |city| %>
         <%= check_box_tag 'city_ids[]', city.id -%>
         <%= h city.name -%>
       <% end %>
   </div>
-  <br>
-  <div class="actions">
-    <%= f.submit %>
+
+  <div class="actions text-center col-sm-5 col-sm-offset-2">
+    <%= f.submit "Save", class: "btn btn-primary" %>
   </div>
 <% end %>
+</div>
