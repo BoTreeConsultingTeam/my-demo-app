@@ -1,0 +1,51 @@
+<%= form_for(@customer , :html =>{class:'form-horizontal text-center '} )do |f|  %>
+  <% if @customer.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@customer.errors.count, "error") %> prohibited this customer from being saved:</h2>
+
+      <ul>
+      <% @customer.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="form-group">
+    <%= f.label :phone_number , class: 'col-sm-offset-2 col-sm-2 control-label',  autocomplete: "off" %>
+    <div class="col-sm-5">
+    <%= f.text_field :phone_number , class: "form-control"%>
+  </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :first_name , class: 'col-sm-offset-2 col-sm-2 control-label',  autocomplete: "off" %>
+    <div class="col-sm-5">
+    <%= f.text_field :first_name , class: "form-control"%>
+  </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :last_name , class:'col-sm-offset-2 col-sm-2 control-label',  autocomplete: "off" %>
+    <div class="col-sm-5">
+    <%= f.text_field :last_name , class: "form-control"%>
+  </div>
+  </div>
+
+    <div class="form-group">
+      <%= f.label :date , class: 'col-sm-offset-2 col-sm-2 control-label' %>
+      <div class="col-sm-5">
+     <%= f.fields_for(:booking) do |customer_booking| %>
+       <%= customer_booking.date_field :date , class: "form-control" %>
+       <% end %>
+     </div>
+     </div>
+    <div class="form-group">
+       <%= f.label :City ,class: 'col-sm-offset-2 col-sm-2 control-label' %>
+       <div class="col-sm-5">
+       <%=f.select :city , @cities.map{ |c| [c.name, c.id] }, class: "form-control" %>
+      </div>
+  </div>
+
+  <div class="col-sm-offset-2 actions text-center col-sm-5">
+      <%= f.submit "Signup or Book",:class => "btn btn-primary" %>
+    </div>
+
+<% end %>

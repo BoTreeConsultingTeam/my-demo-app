@@ -1,7 +1,4 @@
-<%if current_admin.nil? %>
-<%= link_to 'Admin login', new_admin_session_path %>
-<h2>Hello User!</h2>
-<% else %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,11 +8,15 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-<%= link_to 'logout', destroy_admin_session_path , method: :delete%>
-<%= link_to 'Bookings', bookings_path %>
-<%= link_to 'Customers', customers_path %>
-<%= link_to 'Cleaners', cleaners_path %>
-<%= link_to 'City', new_city_path %>
+  <%= link_to 'Home', new_customer_path,class: 'btn btn-default' %>
+  <%if current_admin.nil? %>
+  <%= link_to 'Admin login', new_admin_session_path, class: 'btn btn-default' %>
+  <% else %>
+<%= link_to 'logout', destroy_admin_session_path ,class: 'btn btn-default', method: :delete%>
+<%= link_to 'Bookings', bookings_path ,class: 'btn btn-default'%>
+<%= link_to 'Customers', customers_path,class: 'btn btn-default' %>
+<%= link_to 'Cleaners', cleaners_path ,class: 'btn btn-default'%>
+<%= link_to 'City', cities_path ,class: 'btn btn-default'%>
 
 <hr>
 <% end %>

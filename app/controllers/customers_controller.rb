@@ -1,5 +1,6 @@
 class CustomersController < ApplicationController
   before_action :set_customer, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_admin, only: [:index,:destroy, :update]
 
 
   # GET /customers
@@ -33,7 +34,7 @@ class CustomersController < ApplicationController
     @current_customer= Customer.find_by(phone_number: @customer.phone_number)
     if @current_customer.nil?
       respond_to do |format|
-        if @customer.save!
+        if @customer.save
           @cleaners.each do |cleaner|
             if Booking.where(date:params[:customer][:booking][:date],cleaner_id: cleaner.id).count == 0
               @booking=Booking.create(cleaner_id:cleaner.id, customer_id: @customer.id , date: params[:customer][:booking][:date])
@@ -42,7 +43,7 @@ class CustomersController < ApplicationController
               break
             end
           end
-          format.html { redirect_to @customer, notice: 'Customer was successfully created.' }
+          format.html { redirect_to booking_path(@booking), notice: 'Customer was successfully created.' }
           format.json { render :show, status: :created, location: @customer }
         else
           format.html { render :new }
@@ -60,7 +61,7 @@ class CustomersController < ApplicationController
         end
       end
       if @booking.nil?
-        flash[:notice] = "Sorry cleaners not available!!  try again!!"
+        flash[:notice] = "Sorry cleaners not available or invalide date please try again!!"
         redirect_to new_customer_path
 
       else
