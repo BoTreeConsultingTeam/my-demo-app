@@ -13,10 +13,11 @@
   </thead>
 
   <tbody>
+  <%= puts @booking %>
     <% @bookings.each do |booking| %>
       <tr>
-        <td><%= booking.customer %></td>
-        <td><%= booking.cleaner %></td>
+        <td><%= booking.customer.first_name %></td>
+        <td><%= booking.cleaner.first_name %></td>
         <td><%= booking.date %></td>
         <td><%= link_to 'Show', booking %></td>
         <td><%= link_to 'Edit', edit_booking_path(booking) %></td>

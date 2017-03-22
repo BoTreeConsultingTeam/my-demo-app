@@ -10,7 +10,10 @@
       </ul>
     </div>
   <% end %>
-
+  <div class="field">
+    <%= f.label :email %><br>
+    <%= f.text_field :email %>
+  </div>
   <div class="field">
     <%= f.label :first_name %><br>
     <%= f.text_field :first_name %>
@@ -22,6 +25,14 @@
   <div class="field">
     <%= f.label :quality_score %><br>
     <%= f.text_field :quality_score %>
+  </div>
+  <div class="field">
+  <%= f.label :Cities %><br>
+  <% City.all.each do |city| %>
+        <%= check_box_tag 'city_ids[]', city.id -%>
+        <%= h city.city_name -%>
+  <% end %>
+
   </div>
   <div class="actions">
     <%= f.submit %>

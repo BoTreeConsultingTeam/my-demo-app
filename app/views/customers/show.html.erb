@@ -15,5 +15,27 @@
   <%= @customer.phone_number %>
 </p>
 
+<div>
+<table>
+  <thead>
+    <tr>
+      <th>Customer</th>
+      <th>Cleaner</th>
+      <th>Date</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @bookings.each do |booking| %>
+      <tr>
+        <td><%= booking.customer.first_name %></td>
+        <td><%= booking.cleaner.first_name %></td>
+        <td><%= booking.date %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+</div>
+
 <%= link_to 'Edit', edit_customer_path(@customer) %> |
 <%= link_to 'Back', customers_path %>
