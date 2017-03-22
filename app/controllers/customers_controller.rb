@@ -34,7 +34,7 @@ class CustomersController < ApplicationController
       customer_id = @customer.id
     end
     respond_to do |format|
-      if flag = true
+      if flag == true
         display = assign_cleaner(customer_id,params[:customer][:city_id],params[:customer][:date])
         format.html { redirect_to @customer, notice: display }
         format.json { render :show, status: :created, location: @customer }
