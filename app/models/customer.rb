@@ -8,5 +8,4 @@ class Customer < ActiveRecord::Base
                    :numericality => true,
                    :length => { :minimum => 10, :maximum => 15 }
   attr_accessor :date,:city_id
-
 end

@@ -1,32 +1,29 @@
 <!DOCTYPE html>
 <html>
-
-<head>
-  <title>Homework</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
-
-<div class="text-center">
-  <% if current_admin %>
-    <%= link_to 'Bookings', bookings_path %> |
-    <%= link_to 'Customers', customers_path %> |
-    <%= link_to 'Cleaners', cleaners_path %> |
-    <%= link_to 'Admin Sign Out', destroy_admin_session_path, method: :delete %>
-  <% else %>
-    <%= link_to 'Admin Sign In', new_admin_session_path %>
+  <head>
+    <title>Homework</title>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+    <%= csrf_meta_tags %>
+  </head>
+  <body>
+  <div class="text-center">
+    <% if current_admin %>
+      <%= link_to 'Bookings', bookings_path %> |
+      <%= link_to 'Customers', customers_path %> |
+      <%= link_to 'Cleaners', cleaners_path %> |
+      <%= link_to 'Admin Sign Out', destroy_admin_session_path, method: :delete %>
+    <% else %>
+      <%= link_to 'Admin Sign In', new_admin_session_path %>
+    <% end %>
+  </div>
+  <hr>
+  <% if notice %>
+    <p class="alert alert-success container"><%= notice %></p>
   <% end %>
-</div>
-<hr>
-<% if notice %>
-  <p class="alert alert-success container"><%= notice %></p>
-<% end %>
-<% if alert %>
-  <p class="alert alert-danger container"><%= alert %></p>
-<% end %>
-<%= yield %>
-
-</body>
+  <% if alert %>
+    <p class="alert alert-danger container"><%= alert %></p>
+  <% end %>
+  <%= yield %>
+  </body>
 </html>

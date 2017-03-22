@@ -6,22 +6,18 @@ class CleanersController < ApplicationController
   def index
     @cleaners = Cleaner.all
   end
-
   # GET /cleaners/1
   # GET /cleaners/1.json
   def show
      @cleaner = Cleaner.find(params[:id])
   end
-
   # GET /cleaners/new
   def new
     @cleaner = Cleaner.new
   end
-
   # GET /cleaners/1/edit
   def edit
   end
-
   # POST /cleaners
   # POST /cleaners.json
   def create
@@ -40,7 +36,6 @@ class CleanersController < ApplicationController
       end
     end
   end
-
   # PATCH/PUT /cleaners/1
   # PATCH/PUT /cleaners/1.json
   def update
@@ -54,7 +49,6 @@ class CleanersController < ApplicationController
       end
     end
   end
-
   # DELETE /cleaners/1
   # DELETE /cleaners/1.json
   def destroy
@@ -64,13 +58,11 @@ class CleanersController < ApplicationController
       format.json { head :no_content }
     end
   end
-
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_cleaner
       @cleaner = Cleaner.find(params[:id])
     end
-
     # Never trust parameters from the scary internet, only allow the white list through.
     def cleaner_params
       params.require(:cleaner).permit(:first_name, :last_name, :quality_score, :email, :city_ids)

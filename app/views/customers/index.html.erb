@@ -1,31 +1,29 @@
 <div class="container-fluid">
-<p id="notice"><%= notice %></p>
-
-<h1>Listing Customers</h1>
-
-<table class="table table-bordered">
-  <thead>
-    <tr>
-      <th class="text-muted">First name</th>
-      <th class="text-muted">Last name</th>
-      <th class="text-muted">Phone number</th>
-      <th class="text-muted" colspan="3">Actions</th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @customers.each do |customer| %>
+  <p id="notice"><%= notice %></p>
+  <h1>Listing Customers</h1>
+  <table class="table table-bordered">
+    <thead>
       <tr>
-        <td><%= customer.first_name %></td>
-        <td><%= customer.last_name %></td>
-        <td><%= customer.phone_number %></td>
-        <td><%= link_to 'Show', customer,:class=>'btn btn-sm' %>
-        <%= link_to 'Edit', edit_customer_path(customer),:class=>'btn btn-sm' %>
-        <%= link_to 'Destroy', customer, method: :delete, data: { confirm: 'Are you sure?' },:class=>'btn btn-sm' %></td>
+        <th class="text-muted">First name</th>
+        <th class="text-muted">Last name</th>
+        <th class="text-muted">Phone number</th>
+        <th class="text-muted" colspan="3">Actions</th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
-<br>
-<%= link_to 'Customer-Booking', new_customer_path, :class => 'btn btn-sm btn-success text-white' %>
+    </thead>
+
+    <tbody>
+      <% @customers.each do |customer| %>
+        <tr>
+          <td><%= customer.first_name %></td>
+          <td><%= customer.last_name %></td>
+          <td><%= customer.phone_number %></td>
+          <td><%= link_to 'Show', customer,:class=>'btn btn-sm' %>
+          <%= link_to 'Edit', edit_customer_path(customer),:class=>'btn btn-sm' %>
+          <%= link_to 'Destroy', customer, method: :delete, data: { confirm: 'Are you sure?' },:class=>'btn btn-sm' %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <br>
+  <%= link_to 'Customer-Booking', new_customer_path, :class => 'btn btn-sm btn-success text-white' %>
 </div>
