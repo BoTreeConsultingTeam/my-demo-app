@@ -25,24 +25,24 @@ class CustomersController < ApplicationController
   # POST /customers
   # POST /customers.json
   def create
-    if is_customer_exist(params[:customer][:phone_number])
-      @customer = Customer.find_by(phone_number: params[:customer][:phone_number])
-      customer_id = @customer.id
-      result = true
-    else
-      @customer = Customer.new(customer_params)
-      result = @customer.save
-      customer_id = @customer.id
-    end
     respond_to do |format|
-      if result
-        msg = assign_cleaner(customer_id,params[:customer][:city_id],params[:customer][:date])
-        format.html { redirect_to @customer, notice: msg }
+      if add_customer
+        message = assign_cleaner(@customer.id,params[:customer][:city_id],params[:customer][:date])
+        format.html { redirect_to @customer, notice: message }
         format.json { render :show, status: :created, location: @customer }
       else
         format.html { render :new }
         format.json { render json: @customer.errors, status: :unprocessable_entity }
       end
+    end
+  end
+
+  def add_customer
+    if is_customer_exist(params[:customer][:phone_number])
+      @customer = Customer.find_by(phone_number: params[:customer][:phone_number])
+    else
+      @customer = Customer.new(customer_params)
+      @customer.save
     end
   end
 
@@ -53,11 +53,12 @@ class CustomersController < ApplicationController
   def assign_cleaner(customer_id,customers_city_id,customers_date)
     cleaners = City.find(customers_city_id).cleaner
     cleaners.each do |cleaner|
-      if Booking.where('cleaner_id = ?',cleaner).where('date = ?',customers_date).count == 0
+      if cleaner_available_for_date(cleaner,customers_date)
 
         Booking.create(cleaner_id: cleaner.id,customer_id: customer_id,date: customers_date)
-        byebug
-        UserEmail.send_lead_to_cleaner(cleaner.email).deliver
+
+        # Send email to cleaner for new work assignment
+        send_email(cleaner.email)
 
         return "Dear Customer, Your home cleaning duty is assign to #{cleaner.first_name} #{cleaner.last_name}
           on the date #{customers_date}."
@@ -66,6 +67,14 @@ class CustomersController < ApplicationController
     "Dear Customer, Sorry to inform you that because of heavy booking their
       are no any cleaner available in you city for date #{customers_date}
       you choose. Please try for another date."
+  end
+
+  def cleaner_available_for_date(cleaner,customers_date)
+    Booking.where('cleaner_id = ?',cleaner).where('date = ?',customers_date).count == 0 ? true : false
+  end
+
+  def send_email(email)
+    UserEmail.send_lead_to_cleaner(email).deliver
   end
 
   # PATCH/PUT /customers/1

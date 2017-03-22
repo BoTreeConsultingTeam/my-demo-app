@@ -8,6 +8,7 @@
 </head>
 <body>
 
+
 <%= link_to 'Home', root_path %>
 <% if current_admin %>
   <%= link_to 'Bookings', bookings_path %>
@@ -18,6 +19,7 @@
   <%= link_to 'Admin Sign In', new_admin_session_path %>
 <% end %>
 <hr>
+
 
 <%= yield %>
 

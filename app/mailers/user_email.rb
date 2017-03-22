@@ -3,7 +3,7 @@ class UserEmail < ApplicationMailer
 
   def confirm_email(user)
     @user = user
-    mail(to: @user.email,subject: "Confirm you email")
+    mail(to: @user.email,subject: "Homework Confirmation")
   end
 
   def send_lead_to_cleaner(cleaner_email)

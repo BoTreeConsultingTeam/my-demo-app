@@ -1,5 +1,7 @@
 class Customer < ActiveRecord::Base
 
+  has_many :booking, dependent: :destroy
+
   attr_accessor :city_id, :date
 
   validates :first_name, presence: true
