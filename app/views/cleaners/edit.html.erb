@@ -1,6 +1,10 @@
-<h1>Editing Cleaner</h1>
+<div class="container">
+  <ol class="breadcrumb">
+    <li><%= link_to "Home Work", root_path %></li>
+    <li><%= link_to 'Cleaner', cleaners_path %></li>
+    <li class="active"><%= "#{@cleaner.first_name} #{@cleaner.last_name}" %></li>
+  </ol>
 
-<%= render 'form' %>
 
-<%= link_to 'Show', @cleaner %> |
-<%= link_to 'Back', cleaners_path %>
+  <%= render 'form' %>
+</div>

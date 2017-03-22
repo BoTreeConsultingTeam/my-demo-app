@@ -1,35 +1,52 @@
-<p id="notice"><%= notice %></p>
+<div class="container">
+  <ol class="breadcrumb">
+    <li><%= link_to "Home Work", root_path %></li>
+    <li class="active">Cleaners</li>
+    <p class="pull-right text-white"><%= link_to "New Cleaner",new_cleaner_path, class: "btn btn-success btn-xs" %></p>
+  </ol>
+  <% if not notice.nil?  %>
+    <div class="alert alert-success" role="alert" id="notice"><%= notice %>
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+  <% end %>
 
-<h1>Listing Cleaners</h1>
+  <div class="table-responsive">
+    <table class="table table-hover table-bordered">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>First name</th>
+          <th>Last name</th>
+          <th>Confirmation</th>
+          <th>Quality score</th>
+          <th>Verified</th>
+          <th colspan="3">Actions</th>
+        </tr>
+      </thead>
 
-<table>
-  <thead>
-    <tr>
-      <th>First name</th>
-      <th>Last name</th>
-      <th>Verified</th>
-      <th>Confirmation</th>
-      <th>Quality score</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @cleaners.each do |cleaner| %>
-      <tr>
-        <td><%= cleaner.first_name %></td>
-        <td><%= cleaner.last_name %></td>
-        <td><%= cleaner.email_confirmed %></td>
-        <td><%= cleaner.quality_score %></td>
-        <td><%= cleaner.email %></td>
-        <td><%= link_to 'Show', cleaner %></td>
-        <td><%= link_to 'Edit', edit_cleaner_path(cleaner) %></td>
-        <td><%= link_to 'Destroy', cleaner, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Cleaner', new_cleaner_path %>
+      <tbody>
+        <% sr = 0 %>
+        <% @cleaners.each do |cleaner| %>
+          <tr>
+            <td><%= sr += 1 %></td>
+            <td><%= cleaner.first_name %></td>
+            <td><%= cleaner.last_name %></td>
+            <td><%= cleaner.quality_score %></td>
+            <td><%= cleaner.email %></td>
+            <% verification_state = cleaner.email_confirmed ? "primary" : "danger" %>
+            <td>
+              <span class="label label-<%= verification_state %>">
+                <%= cleaner.email_confirmed ? "Verified" : "Unverified" %>
+              </span>
+            </td>
+            <td><%= link_to 'Show', cleaner %></td>
+            <td><%= link_to 'Edit', edit_cleaner_path(cleaner) %></td>
+            <td><%= link_to 'Destroy', cleaner, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

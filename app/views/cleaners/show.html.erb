@@ -1,31 +1,45 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <strong>Email Address:</strong>
-  <%= @cleaner.email %>
-</p>
-
-<p>
-  <strong>First name:</strong>
-  <%= @cleaner.first_name %>
-</p>
-
-<p>
-  <strong>Last name:</strong>
-  <%= @cleaner.last_name %>
-</p>
-
-<p>
-  <strong>Quality score:</strong>
-  <%= @cleaner.quality_score %>
-</p>
-
-<p>
-  <strong>Works in City(s):</strong><br>
-  <% @cleaner.cities.each do |city| %>
-    <%= "#{city.name}" %><br>
+<div class="container">
+  <ol class="breadcrumb">
+    <li><%= link_to "Home Work", root_path %></li>
+    <li><%= link_to "Customers", customers_path %></li>
+    <li class="active">Customers</li>
+  </ol>
+  <% if not notice.nil?  %>
+    <div class="alert alert-success" role="alert" id="notice"><%= notice %>
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
   <% end %>
-</p>
 
-<%= link_to 'Edit', edit_cleaner_path(@cleaner) %> |
-<%= link_to 'Back', cleaners_path %>
+  <div class="jumbotron">
+    <p>
+      <strong>Email Address:</strong>
+      <%= @cleaner.email %>
+    </p>
+
+    <p>
+      <strong>First name:</strong>
+      <%= @cleaner.first_name %>
+    </p>
+
+    <p>
+      <strong>Last name:</strong>
+      <%= @cleaner.last_name %>
+    </p>
+
+    <p>
+      <strong>Quality score:</strong>
+      <%= @cleaner.quality_score %>
+    </p>
+
+    <p>      
+      <strong>Works in City(s):</strong><br>
+      <div>
+        <% @cleaner.cities.each do |city| %>
+          <%= "#{city.name}" %><br>
+        <% end %>
+      </div>
+    </p>
+  </div>
+</div>

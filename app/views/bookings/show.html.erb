@@ -1,19 +1,29 @@
-<p id="notice"><%= notice %></p>
+<div class="container">
+  <ol class="breadcrumb">
+    <li><%= link_to "Home Work", root_path %></li>
+    <li><%= link_to "Booking", bookings_path %></li>
+    <li class="active">Cleaners</li>
+  </ol>
+  <% if not notice.nil?  %>
+    <div class="alert alert-success" role="alert" id="notice"><%= notice %>
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+  <% end %>
 
-<p>
-  <strong>Customer:</strong>
-  <%= @booking.customer %>
-</p>
+  <p>
+    <strong>Customer:</strong>
+    <%= "#{@booking.customer.first_name} #{@booking.customer.last_name}" %>
+  </p>
 
-<p>
-  <strong>Cleaner:</strong>
-  <%= @booking.cleaner %>
-</p>
+  <p>
+    <strong>Cleaner:</strong>
+    <%= "#{@booking.cleaner.first_name} #{@booking.cleaner.last_name}" %>
+  </p>
 
-<p>
-  <strong>Date:</strong>
-  <%= @booking.date %>
-</p>
-
-<%= link_to 'Edit', edit_booking_path(@booking) %> |
-<%= link_to 'Back', bookings_path %>
+  <p>
+    <strong>Date:</strong>
+    <%= @booking.date %>
+  </p>
+</div>
