@@ -25,7 +25,6 @@ class CleanersController < ApplicationController
   # POST /cleaners.json
   def create
     @cleaner = Cleaner.new(cleaner_params)
-
     respond_to do |format|
       if @cleaner.save
         format.html { redirect_to @cleaner, notice: 'Cleaner was successfully created.' }
@@ -34,6 +33,10 @@ class CleanersController < ApplicationController
         format.html { render :new }
         format.json { render json: @cleaner.errors, status: :unprocessable_entity }
       end
+      params[:cleaner][:city_ids].each do |city|
+      @cleanercity=CleanerCity.create(cleaner_id: @cleaner.id,city_id: city)
+    end
+
     end
   end
 
@@ -69,6 +72,6 @@ class CleanersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def cleaner_params
-      params.require(:cleaner).permit(:first_name, :last_name, :quality_score)
+      params.require(:cleaner).permit(:first_name, :last_name, :quality_score, :city_ids , :email)
     end
 end

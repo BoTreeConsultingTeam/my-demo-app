@@ -20,6 +20,19 @@
     <%= f.text_field :last_name %>
   </div>
   <div class="field">
+    <%= f.label :email %><br>
+    <%= f.text_field :email %>
+  </div>
+  <div>
+    <%= f.collection_check_boxes :city_ids, City.all, :id, :name do |b| %>
+    <div class="collection-check-box">
+      <%= b.check_box %>
+      <%= b.label %>
+    </div>
+  <% end %>
+
+  </div>
+  <div class="field">
     <%= f.label :quality_score %><br>
     <%= f.text_field :quality_score %>
   </div>

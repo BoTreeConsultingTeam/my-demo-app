@@ -1,6 +1,7 @@
 class CustomersController < ApplicationController
   before_action :set_customer, only: [:show, :edit, :update, :destroy]
 
+
   # GET /customers
   # GET /customers.json
   def index
@@ -10,11 +11,13 @@ class CustomersController < ApplicationController
   # GET /customers/1
   # GET /customers/1.json
   def show
+
   end
 
   # GET /customers/new
   def new
     @customer = Customer.new
+    @cities=City.all
   end
 
   # GET /customers/1/edit
@@ -25,14 +28,43 @@ class CustomersController < ApplicationController
   # POST /customers.json
   def create
     @customer = Customer.new(customer_params)
+    @city=City.find(params[:customer][:city])
+    @cleaners=@city.cleaners
+    @current_customer= Customer.find_by(phone_number: @customer.phone_number)
+    if @current_customer.nil?
+      respond_to do |format|
+        if @customer.save!
+          @cleaners.each do |cleaner|
+            if Booking.where(date:params[:customer][:booking][:date],cleaner_id: cleaner.id).count == 0
+              @booking=Booking.create(cleaner_id:cleaner.id, customer_id: @customer.id , date: params[:customer][:booking][:date])
+              customer=@customer
+              CleanerMailer.cleaner_email(cleaner , customer).deliver
+              break
+            end
+          end
+          format.html { redirect_to @customer, notice: 'Customer was successfully created.' }
+          format.json { render :show, status: :created, location: @customer }
+        else
+          format.html { render :new }
+          format.json { render json: @customer.errors, status: :unprocessable_entity }
+        end
+      end
+    else
+      @cleaners.each do |cleaner|
+        if Booking.where(date:params[:customer][:booking][:date],cleaner_id: cleaner.id).count == 0
+          @booking=Booking.create(cleaner_id:cleaner.id, customer_id: @current_customer.id , date: params[:customer][:booking][:date])
+          customer = @current_customer
+          CleanerMailer.cleaner_email(cleaner , customer).deliver
 
-    respond_to do |format|
-      if @customer.save
-        format.html { redirect_to @customer, notice: 'Customer was successfully created.' }
-        format.json { render :show, status: :created, location: @customer }
+          break
+        end
+      end
+      if @booking.nil?
+        flash[:notice] = "Sorry cleaners not available!!  try again!!"
+        redirect_to new_customer_path
+
       else
-        format.html { render :new }
-        format.json { render json: @customer.errors, status: :unprocessable_entity }
+        redirect_to booking_path(@booking)
       end
     end
   end
@@ -69,6 +101,6 @@ class CustomersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def customer_params
-      params.require(:customer).permit(:first_name, :last_name, :phone_number)
+      params.require(:customer).permit(:first_name, :last_name, :phone_number , :city)
     end
 end
