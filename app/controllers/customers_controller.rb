@@ -58,7 +58,7 @@ class CustomersController < ApplicationController
         Booking.create(cleaner_id: cleaner.id,customer_id: customer_id,date: customers_date)
 
         # Send email to cleaner for new work assignment
-        send_email(cleaner)
+        send_email(cleaner,customers_date)
 
         return "Dear Customer, Your home cleaning duty is assign to #{cleaner.first_name} #{cleaner.last_name}
           on the date #{customers_date}."
@@ -73,8 +73,8 @@ class CustomersController < ApplicationController
     Booking.where('cleaner_id = ?',cleaner).where('date = ?',customers_date).count == 0 ? true : false
   end
 
-  def send_email(cleaner)
-    UserEmail.send_lead_to_cleaner(cleaner).deliver
+  def send_email(cleaner,customers_date)
+    UserEmail.send_lead_to_cleaner(cleaner,@customer,customers_date).deliver
   end
 
   # PATCH/PUT /customers/1

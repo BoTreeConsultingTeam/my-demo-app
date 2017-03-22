@@ -6,8 +6,10 @@ class UserEmail < ApplicationMailer
     mail(to: @cleaner.email,subject: "Homework Confirmation")
   end
 
-  def send_lead_to_cleaner(cleaner)
+  def send_lead_to_cleaner(cleaner,customer,dateofjob)
     @cleaner = cleaner
+    @customer = customer
+    @dateofjob = dateofjob
     mail(to: @cleaner.email,subject: "Cleaning Work Assignment")
   end
 end
