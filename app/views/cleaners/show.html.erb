@@ -1,28 +1,27 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <strong>First name:</strong>
-  <%= @cleaner.first_name %>
-</p>
-
-<p>
-  <strong>Last name:</strong>
-  <%= @cleaner.last_name %>
-</p>
-<p>
-  <strong>Email:</strong>
-  <%= @cleaner.email %>
-</p>
-<p>
-  <strong>Quality score:</strong>
-  <%= @cleaner.quality_score %>
-</p>
-<p>
-  <strong>City:</strong><br>
-  <% @cleaner.cities.each do |city| %>
-    <%= "#{city.city_name}" %><br>
-  <% end %>
-</p>
-
-<%= link_to 'Edit', edit_cleaner_path(@cleaner) %> |
-<%= link_to 'Back', cleaners_path %>
+<div class="container-fluid">
+  <p id="notice"><%= notice %></p>
+  <div class="raw">
+    <h5> <strong class="text-muted col-md-4">First name: </strong><%= @cleaner.first_name %></h5>
+  </div>
+  <div class="raw">
+    <h5> <strong class="text-muted col-md-4">Last name: </strong><%= @cleaner.last_name %></h5>
+  </div>
+  <div class="raw">
+    <h5> <strong class="text-muted col-md-4">Email: </strong>  <%= @cleaner.email %></h5>
+  </div>
+  <div class="raw">
+    <h5> <strong class="text-muted col-md-4">Quality score:</strong>  <%= @cleaner.quality_score %></h5>
+  </div>
+  <div class="raw">
+    <h5>
+    <strong class="text-muted col-md-4">City:</strong>
+       <% @cleaner.cities.each do |city| %>
+         <%= "#{city.city_name}" %>
+       <% end %>
+    </h5>
+  </div>
+  <div class="raw">
+    <%= link_to 'Edit', edit_cleaner_path(@cleaner), :class => 'btn btn-sm btn-success text-white' %> |
+    <%= link_to 'Back', cleaners_path, :class => 'btn btn-sm btn-success text-white' %>
+  </div>
+</div>
