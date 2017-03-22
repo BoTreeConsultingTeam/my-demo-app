@@ -10,8 +10,18 @@
   <%= @cleaner.last_name %>
 </p>
 <p>
+  <strong>Email:</strong>
+  <%= @cleaner.email %>
+</p>
+<p>
   <strong>Quality score:</strong>
   <%= @cleaner.quality_score %>
+</p>
+<p>
+  <strong>City:</strong><br>
+  <% @cleaner.cities.each do |city| %>
+    <%= "#{city.city_name}" %><br>
+  <% end %>
 </p>
 
 <%= link_to 'Edit', edit_cleaner_path(@cleaner) %> |

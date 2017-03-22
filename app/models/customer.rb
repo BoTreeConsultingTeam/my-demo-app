@@ -1,6 +1,11 @@
 class Customer < ActiveRecord::Base
   validates :first_name, presence: true
   validates :last_name, presence: true
-  has_many :bookings
-  has_many :Cleaners, through: :bookings
+  validates :phone_number,presence: true
+  validates :date, presence: true
+  validates :phone_number,:presence => true,
+                   :numericality => true,
+                   :length => { :minimum => 10, :maximum => 15 }
+  attr_accessor :date,:city_id
+
 end

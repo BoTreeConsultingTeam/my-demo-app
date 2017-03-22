@@ -1,3 +1,4 @@
+<div class="text-center">
 <%= form_for(@booking) do |f| %>
   <% if @booking.errors.any? %>
     <div id="error_explanation">
@@ -20,9 +21,10 @@
   </div>
   <div class="field">
     <%= f.label :date %><br>
-    <%= f.date_select :date %>
+    <%= f.date_field :date %>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit "Add Booking", :class => 'btn btn-success btn-sm' %>
   </div>
 <% end %>
+</div>

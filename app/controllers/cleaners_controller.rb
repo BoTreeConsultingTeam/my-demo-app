@@ -1,6 +1,6 @@
 class CleanersController < ApplicationController
   before_action :set_cleaner, only: [:show, :edit, :update, :destroy]
-
+  before_action :authenticate_admin!
   # GET /cleaners
   # GET /cleaners.json
   def index
@@ -30,7 +30,7 @@ class CleanersController < ApplicationController
     respond_to do |format|
       if @cleaner.save
         @cityId.each do |i|
-          CleanerCity.create(cleaner_id: @cleaner.id, city_id: i)
+          CleanerCity.create!(cleaner_id: @cleaner.id, city_id: i)if !(@cityId.nil?)
         end
         format.html { redirect_to @cleaner, notice: 'Cleaner was successfully created.' }
         format.json { render :show, status: :created, location: @cleaner }
@@ -73,6 +73,6 @@ class CleanersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def cleaner_params
-      params.require(:cleaner).permit(:first_name, :last_name, :quality_score, :city_ids)
+      params.require(:cleaner).permit(:first_name, :last_name, :quality_score, :email, :city_ids)
     end
 end

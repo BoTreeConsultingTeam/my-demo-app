@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :admins
   get 'cleanercities/edit'
 
   get 'cleanercities/update'
@@ -9,7 +10,7 @@ Rails.application.routes.draw do
 
   get 'cities/index'
 
-  root 'bookings#index'
+  root 'customers#new'
 
   resources :bookings
   resources :cleaners
