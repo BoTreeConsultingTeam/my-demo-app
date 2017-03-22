@@ -1,9 +1,12 @@
 Rails.application.routes.draw do
+
   root 'customers#new'
 
   devise_for :admins
 
   resources :bookings
+
+  resources :cities
 
   resources :cleaners do
     get 'confirm_token/:token' => 'cleaners#confirm_token', as: 'confirm_email'

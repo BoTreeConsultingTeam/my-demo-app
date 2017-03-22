@@ -1,0 +1,17 @@
+<div class="container">
+  <ol class="breadcrumb">
+    <li><%= link_to "Home Work", root_path %></li>
+    <li><%= link_to "Cities", cities_path %></li>
+    <li class="active">New City</li>
+  </ol>
+  <% if not notice.nil?  %>
+    <div class="alert alert-success" role="alert" id="notice"><%= notice %>
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+  <% end %>
+
+<%= render 'form' %>
+
+</div>
