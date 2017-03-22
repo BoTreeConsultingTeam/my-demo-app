@@ -1,4 +1,6 @@
-<p id="notice"><%= notice %></p>
+<% if notice %>
+<p id="notice" class="alert alert-info"><%= notice %></p>
+<% end %>
 
 <p>
   <strong>First name:</strong>
@@ -15,8 +17,9 @@
   <%= @customer.phone_number %>
 </p>
 
-<div>
-<table>
+<% if @bookings %>
+<div id="content" class="col-xs-9">
+<table class="table table-hover table-bordered">
   <thead>
     <tr>
       <th>Customer</th>
@@ -35,7 +38,6 @@
     <% end %>
   </tbody>
 </table>
+<% end %>
+<%= link_to 'Back', new_customer_path %>
 </div>
-
-<%= link_to 'Edit', edit_customer_path(@customer) %> |
-<%= link_to 'Back', customers_path %>

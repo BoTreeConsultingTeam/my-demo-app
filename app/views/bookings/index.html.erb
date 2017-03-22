@@ -1,14 +1,16 @@
+<div class="col-xs-9">
 <p id="notice"><%= notice %></p>
 
 <h1>Listing Bookings</h1>
-
-<table>
+<% if @bookings %>
+<div id="content" class="col-xs-9">
+<table class="table table-hover table-bordered">
   <thead>
     <tr>
       <th>Customer</th>
       <th>Cleaner</th>
       <th>Date</th>
-      <th colspan="3"></th>
+      <th>Actions</th>
     </tr>
   </thead>
 
@@ -19,9 +21,9 @@
         <td><%= booking.customer.first_name %></td>
         <td><%= booking.cleaner.first_name %></td>
         <td><%= booking.date %></td>
-        <td><%= link_to 'Show', booking %></td>
-        <td><%= link_to 'Edit', edit_booking_path(booking) %></td>
-        <td><%= link_to 'Destroy', booking, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Show', booking,class: 'btn-link btn-sm' %>
+        <%= link_to 'Edit', edit_booking_path(booking),class: 'btn-link btn-sm' %>
+        <%= link_to 'Destroy', booking, method: :delete, data: { confirm: 'Are you sure?' },class: 'btn-link btn-sm' %>
       </tr>
     <% end %>
   </tbody>
@@ -30,3 +32,5 @@
 <br>
 
 <%= link_to 'New Booking', new_booking_path %>
+</div>
+</td>

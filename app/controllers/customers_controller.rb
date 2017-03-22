@@ -36,7 +36,7 @@ class CustomersController < ApplicationController
         booking_done = booking_cleaner(date,params[:city])
         puts booking_cleaner(date,params[:city])
         if booking_done 
-          format.html { redirect_to booking_path(@booking.id), notice: 'Booking is successfully created.' }
+          format.html { redirect_to booking_path(@booking.id), notice: 'Congratulations Booking is successfully created !' }
         else
           format.html { redirect_to @customer, notice: 'Sorry, There is no cleaner available' }
         end
