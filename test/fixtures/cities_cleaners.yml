@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  city_id: 
+  cleaner_id: 
+
+two:
+  city_id: 
+  cleaner_id: 

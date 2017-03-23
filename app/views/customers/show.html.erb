@@ -1,19 +1,25 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <strong>First name:</strong>
-  <%= @customer.first_name %>
-</p>
-
-<p>
-  <strong>Last name:</strong>
-  <%= @customer.last_name %>
-</p>
-
-<p>
-  <strong>Phone number:</strong>
-  <%= @customer.phone_number %>
-</p>
-
-<%= link_to 'Edit', edit_customer_path(@customer) %> |
-<%= link_to 'Back', customers_path %>
+<div class="panel panel-default">
+  <div class="panel-heading">Derails of bookings by <%= @customer.first_name + " " + @customer.last_name %></div>
+   <div class="panel-body">
+     <table border="2" class="table table-hover table-striped">
+       <tr>
+         <th>Date</th>
+         <th>Cleaner name</th>
+         <th>City</th>
+       </tr>
+       <%@customer_booking.each do |booking| %>
+        <tr>
+          <td>
+            <%=booking.datetime %>
+          </td>
+          <td>
+            <%=booking.cleaner.first_name + " " + booking.cleaner.last_name%>
+          </td>
+          <td>
+            <%=booking.city.city_name%>
+          </td>
+        </tr>
+      <%end%>
+    </table>
+  </div>
+</div>

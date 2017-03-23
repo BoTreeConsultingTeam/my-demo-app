@@ -1,29 +1,33 @@
-<%= form_for(@booking) do |f| %>
-  <% if @booking.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@booking.errors.count, "error") %> prohibited this booking from being saved:</h2>
-
-      <ul>
-      <% @booking.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
+<div class="panel panel-default">
+  <div class="panel-heading">New Booking</div>
+   <div class="panel-body">
+     <p class="error_message">
+       <%=flash[:select_another_cleaner]%>
+     </p>
+     <%= form_for(@booking) do |f| %>
+      <% if @booking.errors.any? %>
+        <div id="error_explanation">
+          <ul>
+          <% @booking.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+          </ul>
+        </div>
       <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :customer_id %><br>
-    <%= f.text_field :customer_id %>
+      <div class="field">
+        <%= f.label :datetime %><br>
+        <%= f.datetime_select :datetime %>
+      </div>
+      <div class="field">
+        <%= f.label :select_city%><br />
+        <%= collection_select "city", "booking", @cities, :id, :city_name,
+            {selected: 0, include_blank: '--Cities--'}%>
+      </div>
+      <div id="cleaners">
+      </div>
+      <div class="actions">
+        <%= f.submit %>
+      </div>
+    <% end %>
   </div>
-  <div class="field">
-    <%= f.label :cleaner_id %><br>
-    <%= f.text_field :cleaner_id %>
-  </div>
-  <div class="field">
-    <%= f.label :date %><br>
-    <%= f.date_select :date %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+</div>

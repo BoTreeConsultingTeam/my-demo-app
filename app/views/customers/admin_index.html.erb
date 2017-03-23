@@ -1,0 +1,28 @@
+<%=link_to "Home" ,admins_path%>
+<%= link_to "Log out", destroy_admin_session_path, method: :delete%>
+<div class="panel panel-default">
+  <div class="panel-heading">All Customers</div>
+   <div class="panel-body">
+     <table border="2" class="table table-hover table-striped">
+       <thead>
+         <tr>
+           <th>Name</th>
+           <th>phone_number</th>
+           <th>Details</th>
+         </tr>
+       </thead>
+       <tbody>
+         <% @customers.each do |customer| %>
+           <tr>
+             <td><%=customer.first_name + " " + customer.last_name%></td>
+             <td><%=customer.phone_number%></td>
+             <td>
+               <%= link_to "show", customer_path(customer) %>
+             </td>
+           </tr>
+         <% end %>
+       </tbody>
+     </table>
+   </div>
+ </div>
+</div>

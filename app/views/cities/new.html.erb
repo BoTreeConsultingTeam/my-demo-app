@@ -1,0 +1,6 @@
+<%=link_to "Home", admins_path%>
+<%= link_to "Log out", destroy_admin_session_path, method: :delete%>
+<div class="panel panel-default">
+   <div class="panel-heading">New City</div>
+
+<%= render 'form' %>

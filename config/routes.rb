@@ -1,9 +1,17 @@
 Rails.application.routes.draw do
-  root 'bookings#index'
 
-  resources :bookings
+  devise_for :admins, controllers: {
+        sessions: 'admins/sessions'
+      }
+
+  root 'customers#new'
+  get 'customers/destroy' => 'customers#destroy', as: :customer_log_out
+  get 'bookings/edit' => 'bookings#edit', as: :booking_edit
+  resources :admins
+  resources :bookings, except: :edit
   resources :cleaners
-  resources :customers
+  resources :customers, except: :destroy
+  resources :cities
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
