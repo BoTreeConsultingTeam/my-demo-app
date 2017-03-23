@@ -1,6 +1,7 @@
 class CleanersController < ApplicationController
   before_action :set_cleaner, only: [:show, :edit, :update, :destroy]
-
+  before_action :authenticate_admin!
+  before_action :select_city, only: [:new, :edit, :create, :update]
   # GET /cleaners
   # GET /cleaners.json
   def index
@@ -14,6 +15,7 @@ class CleanersController < ApplicationController
 
   # GET /cleaners/new
   def new
+    @city = City.all
     @cleaner = Cleaner.new
   end
 
@@ -24,27 +26,42 @@ class CleanersController < ApplicationController
   # POST /cleaners
   # POST /cleaners.json
   def create
-    @cleaner = Cleaner.new(cleaner_params)
-
-    respond_to do |format|
+    id_city = params[:city_ids]
+    unless id_city.nil?
+      @cleaner = Cleaner.new(cleaner_params)
       if @cleaner.save
-        format.html { redirect_to @cleaner, notice: 'Cleaner was successfully created.' }
-        format.json { render :show, status: :created, location: @cleaner }
+        CitiesCleaner.add_city(@cleaner.id, params[:city_ids])
+        respond_to do |format|
+          format.html { redirect_to @cleaner, notice: 'Cleaner was successfully created.' }
+          format.json { render :show, status: :created, location: @cleaner }
+        end
       else
-        format.html { render :new }
-        format.json { render json: @cleaner.errors, status: :unprocessable_entity }
+        render action: 'new'
       end
+    else
+      flash[:notice] = 'Please select At least one city'
+      redirect_to action: 'new'
     end
   end
 
   # PATCH/PUT /cleaners/1
   # PATCH/PUT /cleaners/1.json
   def update
-    respond_to do |format|
+    id_city = params[:city_ids]
+    unless id_city.nil?
       if @cleaner.update(cleaner_params)
-        format.html { redirect_to @cleaner, notice: 'Cleaner was successfully updated.' }
-        format.json { render :show, status: :ok, location: @cleaner }
+        CitiesCleaner.where(cleaner_id: @cleaner.id).destroy_all
+        CitiesCleaner.add_city(@cleaner.id, params[:city_ids])
+        respond_to do |format|
+          format.html { redirect_to @cleaner, notice: 'Cleaner was successfully updated.' }
+          format.json { render :show, status: :ok, location: @cleaner }
+        end
       else
+        render 'edit'
+      end
+    else
+      flash[:notice] = 'Without select City this operation not permit'
+      respond_to do |format|
         format.html { render :edit }
         format.json { render json: @cleaner.errors, status: :unprocessable_entity }
       end
@@ -69,6 +86,10 @@ class CleanersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def cleaner_params
-      params.require(:cleaner).permit(:first_name, :last_name, :quality_score)
+      params.require(:cleaner).permit(:first_name, :last_name, :quality_score, :email)
+    end
+
+    def select_city
+      @city = City.all
     end
 end

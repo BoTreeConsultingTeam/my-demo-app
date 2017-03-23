@@ -1,10 +1,15 @@
 class CustomersController < ApplicationController
   before_action :set_customer, only: [:show, :edit, :update, :destroy]
-
+  before_action :session_checking , only: [:show, :edit]
+  before_action :admin_only, only: [:new,:edit]
   # GET /customers
   # GET /customers.json
   def index
-    @customers = Customer.all
+    if current_admin
+      @customers = Customer.all
+    else
+      @bookings = Booking.where(customer_id:session[:customer])
+    end
   end
 
   # GET /customers/1
@@ -24,15 +29,27 @@ class CustomersController < ApplicationController
   # POST /customers
   # POST /customers.json
   def create
-    @customer = Customer.new(customer_params)
-
-    respond_to do |format|
-      if @customer.save
-        format.html { redirect_to @customer, notice: 'Customer was successfully created.' }
-        format.json { render :show, status: :created, location: @customer }
+    if params[:commit] == 'Login'
+      @customer = Customer.find_by(phone_number:params[:customer][:phone_number],password:params[:customer][:password])
+      unless @customer.nil?
+        session[:customer] = @customer.id
+        flash[:notice] = ''
+        redirect_to customers_path
       else
-        format.html { render :new }
-        format.json { render json: @customer.errors, status: :unprocessable_entity }
+        flash[:notice] = "Invalid Phone number or Password"
+        redirect_to root_path
+      end
+    else
+      @customer = Customer.new(customer_params)
+      respond_to do |format|
+        if @customer.save
+          session[:customer] = @customer.id
+          format.html { redirect_to @customer, notice: 'Customer was successfully created.' }
+          format.json { render :show, status: :created, location: @customer }
+        else
+          format.html { render :new }
+          format.json { render json: @customer.errors, status: :unprocessable_entity }
+        end
       end
     end
   end
@@ -61,6 +78,11 @@ class CustomersController < ApplicationController
     end
   end
 
+  def logout
+    session[:customer] = nil
+    redirect_to action: 'new'
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_customer
@@ -69,6 +91,6 @@ class CustomersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def customer_params
-      params.require(:customer).permit(:first_name, :last_name, :phone_number)
+      params.require(:customer).permit(:first_name, :last_name, :phone_number, :password)
     end
 end

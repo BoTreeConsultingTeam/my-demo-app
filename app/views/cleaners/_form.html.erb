@@ -1,3 +1,4 @@
+<p id="notice" style="color:red"><%= notice %></p>
 <%= form_for(@cleaner) do |f| %>
   <% if @cleaner.errors.any? %>
     <div id="error_explanation">
@@ -22,6 +23,21 @@
   <div class="field">
     <%= f.label :quality_score %><br>
     <%= f.text_field :quality_score %>
+  </div>
+  <div class="field">
+    <%= f.label :email %><br>
+    <%= f.text_field :email %>
+  </div>
+  <div class="field">
+    <%= f.label :City %><br>
+    <% @city.each do |city|%>
+        <% if @cleaner.cities.ids.include?(city.id) %>
+          <%= check_box_tag 'city_ids[]', city.id, checked: true %>
+        <% else %>
+          <%= check_box_tag 'city_ids[]', city.id%>
+        <% end %>
+        <%= h city.name %></br>
+    <% end %>
   </div>
   <div class="actions">
     <%= f.submit %>

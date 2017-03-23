@@ -1,31 +1,21 @@
-<p id="notice"><%= notice %></p>
-
 <h1>Listing Bookings</h1>
 
-<table>
-  <thead>
+<table border=2 class="table table-bordered">
+  <tr>
+    <th> Customer name </th>
+    <th> Cleaner name </th>
+    <th> City </th>
+    <th> Date And Time </th>
+  </tr>
+<% @bookings.each do |booking|%>
     <tr>
-      <th>Customer</th>
-      <th>Cleaner</th>
-      <th>Date</th>
-      <th colspan="3"></th>
+      <td><%= booking.customer.first_name %> <%= booking.customer.last_name  %></td>
+      <td><%= booking.cleaner.first_name %> <%= booking.cleaner.last_name %></td>
+      <td><%= booking.city.name %></td>
+      <td><%= booking.datetime.localtime.strftime("%m/%d/%Y %H:%M") %></td>
+      <td><%= link_to 'Show', booking %></td>
     </tr>
-  </thead>
-
-  <tbody>
-    <% @bookings.each do |booking| %>
-      <tr>
-        <td><%= booking.customer %></td>
-        <td><%= booking.cleaner %></td>
-        <td><%= booking.date %></td>
-        <td><%= link_to 'Show', booking %></td>
-        <td><%= link_to 'Edit', edit_booking_path(booking) %></td>
-        <td><%= link_to 'Destroy', booking, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Booking', new_booking_path %>
+<% end %>
+<% if current_admin.nil? %>
+  <%= link_to 'New Booking', new_booking_path  %>
+<% end %>

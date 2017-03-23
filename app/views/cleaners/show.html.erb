@@ -15,5 +15,15 @@
   <%= @cleaner.quality_score %>
 </p>
 
+<p>
+  <strong>Email:</strong>
+  <%= @cleaner.email %>
+</p>
+
+<p>
+  <strong>city:</strong>
+  <%= @cleaner.cities.pluck(:name).join(',') %>
+</p>
+
 <%= link_to 'Edit', edit_cleaner_path(@cleaner) %> |
 <%= link_to 'Back', cleaners_path %>
