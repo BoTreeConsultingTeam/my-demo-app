@@ -56,14 +56,12 @@ class CustomersController < ApplicationController
           @booking=Booking.create(cleaner_id:cleaner.id, customer_id: @current_customer.id , date: params[:customer][:booking][:date])
           customer = @current_customer
           CleanerMailer.cleaner_email(cleaner , customer).deliver
-
           break
         end
       end
       if @booking.nil?
         flash[:notice] = "Sorry cleaners not available or invalide date please try again!!"
         redirect_to new_customer_path
-
       else
         redirect_to booking_path(@booking)
       end

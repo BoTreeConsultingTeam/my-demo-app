@@ -10,7 +10,7 @@
 <body>
   <%= link_to 'Home', new_customer_path,class: 'btn btn-default' %>
   <%if current_admin.nil? %>
-  <%= link_to 'Admin login', new_admin_session_path, class: 'btn btn-default' %>
+    <%= link_to 'Admin login', new_admin_session_path, class: 'btn btn-default' %>
   <% else %>
 <%= link_to 'logout', destroy_admin_session_path ,class: 'btn btn-default', method: :delete%>
 <%= link_to 'Bookings', bookings_path ,class: 'btn btn-default'%>

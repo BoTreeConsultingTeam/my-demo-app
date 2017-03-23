@@ -38,12 +38,12 @@
     <div class="form-group">
       <%= f.label :Cities , class: 'col-sm-2 control-label',  autocomplete: "off" %>
       <div class = "col-sm-5">
-      <%= f.collection_check_boxes :city_ids, City.all, :id, :name do |b| %>
-      <div class="collection_check_boxes">
-      <%= b.check_box %>
-      <%= b.label %>
-    </div>
-      <% end %>
+        <%= f.collection_check_boxes :city_ids, City.all, :id, :name do |b| %>
+          <div class="collection_check_boxes">
+            <%= b.check_box %>
+            <%= b.label %>
+          </div>
+        <% end %>
       </div>
   </div>
 
