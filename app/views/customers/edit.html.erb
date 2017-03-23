@@ -2,5 +2,10 @@
 
 <%= render 'form' %>
 
-<%= link_to 'Show', @customer %> |
-<%= link_to 'Back', customers_path %>
+<%= link_to  @customer,title: 'Edit Customer' do %>
+  <span class="glyphicon glyphicon-pencil"></span>
+<% end %>
+
+<%= link_to  customers_path,title: 'Back All Customers' do %>
+  <span class="glyphicon glyphicon-arrow-left"></span>
+<% end %>

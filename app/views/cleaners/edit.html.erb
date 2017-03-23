@@ -2,5 +2,11 @@
 
 <%= render 'form' %>
 
-<%= link_to 'Show', @cleaner %> |
-<%= link_to 'Back', cleaners_path %>
+
+<%= link_to  @cleaner,title: 'show Cleaner' do %>
+<span class="glyphicon glyphicon-eye-open"></span>
+<% end %>
+ |
+ <%= link_to  cleaners_path,title: 'Back to All Cleaner' do %>
+   <span class="glyphicon glyphicon-arrow-left"></span>
+ <% end %>

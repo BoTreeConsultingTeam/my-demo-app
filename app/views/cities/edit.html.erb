@@ -2,5 +2,6 @@
 
 <%= render 'form' %>
 
-<%= link_to 'Show', @city %> |
-<%= link_to 'Back', cities_path %>
+<%= link_to cities_path,title: 'Back All City' do %>
+  <span class="glyphicon glyphicon-arrow-left"></span>
+<% end %>

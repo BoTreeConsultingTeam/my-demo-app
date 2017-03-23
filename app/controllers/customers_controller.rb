@@ -8,6 +8,7 @@ class CustomersController < ApplicationController
     if current_admin
       @customers = Customer.all
     else
+      redirect_to root_path if session[:customer].nil?
       @bookings = Booking.where(customer_id:session[:customer])
     end
   end

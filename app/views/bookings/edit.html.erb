@@ -1,5 +1,7 @@
 <h1>Editing Booking</h1>
 <h1>Sorry Booking not Editable</h1>
 
-<%= link_to 'Show', @booking %> |
-<%= link_to 'Back', bookings_path %>
+
+ <%= link_to  bookings_path,title: 'Back to All Cleaner' do %>
+   <span class="glyphicon glyphicon-arrow-left"></span>
+ <% end %>

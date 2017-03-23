@@ -14,7 +14,7 @@ class CitiesController < ApplicationController
     if @city.save
       redirect_to action: 'index'
     else
-      redirect_to action: 'new'
+      render :new
     end
   end
 
@@ -28,7 +28,7 @@ class CitiesController < ApplicationController
     if @city.update(params_city)
       redirect_to action: 'index'
     else
-      redirect_to action: 'new'
+      render :edit
     end
   end
 

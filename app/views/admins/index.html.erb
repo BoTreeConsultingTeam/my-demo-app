@@ -1,17 +1,1 @@
-<h1>Booking Details </h1>
-<table border=2 class="table table-bordered">
-  <tr>
-    <th> Date And Time </th>
-    <th> Customer name </th>
-    <th> Cleaner name </th>
-    <th> City </th>
-  </tr>
-<% @bookings.each do |booking|%>
-    <tr>
-      <td><%= booking.datetime.localtime.strftime("%m/%d/%Y %H:%M") %></td>
-      <td><%= booking.customer.first_name %> <%= booking.customer.last_name  %></td>
-      <td><%= booking.cleaner.first_name %> <%= booking.cleaner.last_name %></td>
-      <td><%= booking.city.name %></td>
-      <td><%= link_to 'Show',booking %></td>
-    </tr>
-<% end %>
+<%= render 'bookings_index'%>

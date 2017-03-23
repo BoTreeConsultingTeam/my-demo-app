@@ -1,5 +1,6 @@
 <% if current_admin%>
 <h1>Customer Details </h1>
+<div class="table_width">
 <table border=2 class="table table-bordered">
   <tr>
     <th> Name </th>
@@ -10,15 +11,23 @@
     <tr>
       <td><%= customer.first_name+' '+customer.last_name %></td>
       <td><%= customer.phone_number %></td>
-      <td><%= link_to 'Show', customer %></td>
+      <td><%= link_to  customer do %>
+            <span class="glyphicon glyphicon-eye-open"></span>
+          <% end %>
+      </td>
     </tr>
 <% end %>
 </table>
+</div>
 <% else %>
 <p id="notice"><%= notice %></p>
-
-<h1>Booking Details </h1>
-<table border=2>
+<h1>Booking Details</h1>
+<div class="table_width">
+  <div class="float-right">
+  <%= button_to  new_booking_path,method: :get,class: "btn btn-primary",title: 'Add New Booking' do %>
+  <span class="glyphicon glyphicon-plus"></span>
+  <% end %></div>
+<table class="table table-bordered">
   <tr>
     <th> Date And Time </th>
     <th> Cleaner name </th>
@@ -29,9 +38,12 @@
     <td><%= booking.datetime.localtime.strftime("%m/%d/%Y %H:%M") %></td>
     <td><%= booking.cleaner.first_name %> <%= booking.cleaner.last_name %></td>
     <td><%= booking.city.name %></td>
-    <td><%= link_to 'Show', booking %></td>
+    <td><%= link_to  booking do %>
+        <span class="glyphicon glyphicon-eye-open"></span>
+        <% end %>
+    </td>
   </tr>
   <% end %>
 </table>
-
+</div>
 <% end %>

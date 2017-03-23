@@ -1,7 +1,11 @@
 <p id="notice"><%= notice %></p>
 
 <h1>Listing Cleaners</h1>
-
+<div class="table_width">
+  <div class="float-right">
+  <%= button_to  new_cleaner_path,method: :get,class: "btn btn-primary",title: 'Add New Cleaner' do %>
+  <span class="glyphicon glyphicon-plus"></span>
+  <% end %></div>
 <table border=2 class="table table-bordered">
   <thead>
     <tr>
@@ -23,13 +27,22 @@
         <td><%= cleaner.quality_score %></td>
         <td><%= cleaner.cities.pluck(:name).join(',')%>
         </td>
-        <td><%= link_to 'Show', cleaner %></td>
-        <td><%= link_to 'Edit', edit_cleaner_path(cleaner) %></td>
-        <td><%= link_to 'Destroy', cleaner, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to  cleaner  do%>
+              <span class="glyphicon glyphicon-eye-open"></span>
+            <% end %>
+        </td>
+        <td><%= link_to edit_cleaner_path(cleaner) do %>
+            <span class="glyphicon glyphicon-pencil"></span>
+            <% end %>
+        </td>
+        <td><%= link_to  cleaner, method: :delete, data: { confirm: 'Are you sure?' } do %>
+            <span class="glyphicon glyphicon-trash"></span>
+            <% end %>
+        </td>
       </tr>
     <% end %>
   </tbody>
 </table>
+</div>
 
 <br>
-<h3><%= link_to 'New Cleaner', new_cleaner_path %></h3>

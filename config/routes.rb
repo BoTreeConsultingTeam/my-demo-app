@@ -9,7 +9,7 @@ Rails.application.routes.draw do
 
   get 'admins/edit'
 
-  devise_for :admins
+  devise_for :admins,controllers: {sessions: 'admins/sessions'}
   root 'customers#new'
 
 
@@ -22,5 +22,5 @@ Rails.application.routes.draw do
   get 'bookings/get_city_wise_cleaner' => 'bookings#get_city_wise_cleaner',as: :get_city_wise_cleaner
   resources :bookings
 
-
+  match '*path' => redirect('/404'),via: :get
 end

@@ -1,0 +1,11 @@
+.table_width
+{
+  width:70%
+}
+.float-right
+{
+  float:right;
+}
+table th,td{
+  text-align: center;
+}

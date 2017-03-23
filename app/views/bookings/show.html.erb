@@ -18,5 +18,6 @@
   <strong>Time:</strong>
   <%= @booking.datetime.localtime.strftime("%m/%d/%Y %H:%M") %>
 </p>
-
-<%= link_to 'Back', bookings_path %>
+<%= link_to  bookings_path,title: 'Back All  Bookings' do %>
+  <span class="glyphicon glyphicon-arrow-left"></span>
+  <% end %>
