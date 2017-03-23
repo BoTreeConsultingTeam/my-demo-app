@@ -2,7 +2,6 @@ class CustomersController < ApplicationController
   before_action :set_customer, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_admin, only: [:index]
 
-
   # GET /customers
   # GET /customers.json
   def index
@@ -61,7 +60,6 @@ class CustomersController < ApplicationController
                 end
               end
           end
-
         else
           format.html { render welcome_index_path }
           format.json { render json: @customer.errors, status: :unprocessable_entity }
@@ -70,7 +68,6 @@ class CustomersController < ApplicationController
         @exist = Customer.where(phone_number: @customer.phone_number)
         if @exist.count > 0
           @customer = @exist.first
-          @cities = City.all
           @booking = Booking.new(customer_city_id: params["city_id"])
           @booking.cleaning_start = DateTime.new(params[:customer][:booking]["date(1i)"].to_i, params[:customer][:booking]["date(2i)"].to_i, params[:customer][:booking]["date(3i)"].to_i, params[:customer][:booking]["date(4i)"].to_i, params[:customer][:booking]["date(5i)"].to_i)
           @cleaners = City.find(@booking.customer_city_id).cleaners

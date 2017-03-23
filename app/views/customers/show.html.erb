@@ -35,7 +35,7 @@
       <tr>
         <td><%= Cleaner.find(booking.cleaner_id).first_name %></td>
         <td><%= Cleaner.find(booking.cleaner_id).email %></td>
-        <td><%= booking.created_at %></td>
+        <td><%= booking.cleaning_start %></td>
         <td><%= booking.cleaning_start + 2.hours %></td>
       </tr>
     <% end %>

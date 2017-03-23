@@ -1,18 +1,22 @@
-<%= form_for(@booking) do |f| %>
-  <div class="field">
-    <%= f.label :City %><br>
-    <%= select_tag 'city_id',
-    options_for_select(@cities.collect{ |i| [i.name, i.id]}),
-    onchange: "test()" %>
+<p id="notice"><%= notice %></p>
+<div class="form-horizontal">
+<%= form_for @booking do |b| %>
+  <div class="form-group">
+    <%= b.label :City, class: "col-sm-offset-2 col-sm-2 control-label" %>
+    <div class = "col-sm-5">
+      <%= select_tag 'city_id', options_for_select(@cities.collect{ |i| [i.name, i.id]}), class: "form-control" %>
+    </div>
   </div>
-
-  <div class="field">
-    <%= f.label :Enter_cleaning_complete_time %><br>
-    <%= f.datetime_select :date %>
-    <%= @booking.errors.full_messages_for(:name)[0] %>
+  <div class="form-group" id='datetimepicker2'>
+    <%= b.label :Enter_time, class: "col-sm-offset-2 col-sm-2 control-label" %>
+    <div class = "col-sm-5">
+      <%= b.datetime_select :cleaning_start, class: "form-control" %>
+    </div>
   </div>
-
-  <div class="actions">
-    <%= f.submit %>
+  <br>
+  <br>
+  <div class="actions text-center col-sm-5 col-sm-offset-2">
+    <%= b.submit "Book", class: "btn btn-primary"%>
   </div>
 <% end %>
+</div>

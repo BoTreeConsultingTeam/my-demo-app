@@ -1,6 +1,5 @@
 class BookingsController < ApplicationController
-  before_action :set_booking, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_admin, only: [:index]
+  before_action :set_booking, only: [ :edit, :update, :destroy]
 
   # GET /bookings
   # GET /bookings.json
@@ -11,6 +10,10 @@ class BookingsController < ApplicationController
   # GET /bookings/1
   # GET /bookings/1.json
   def show
+    @booking = Booking.find(params[:id])
+    if not current_admin.nil?
+      @booking.customer_id = 48
+    end
   end
 
   # GET /bookings/new
@@ -21,36 +24,35 @@ class BookingsController < ApplicationController
 
   # GET /bookings/1/edit
   def edit
+    @cities = City.all
+
   end
 
   # POST /bookings
   # POST /bookings.json
   def create
     @cities = City.all
-    @customer = current_admin
     @booking = Booking.new(customer_city_id: params["city_id"])
-    @booking.cleaning_start = DateTime.new(params[:customer][:booking]["date(1i)"].to_i, params[:customer][:booking]["date(2i)"].to_i, params[:customer][:booking]["date(3i)"].to_i, params[:customer][:booking]["date(4i)"].to_i, params[:customer][:booking]["date(5i)"].to_i)
+    @booking.cleaning_start = DateTime.new(params[:booking]["cleaning_start(1i)"].to_i, params[:booking]["cleaning_start(2i)"].to_i, params[:booking]["cleaning_start(3i)"].to_i, params[:booking]["cleaning_start(4i)"].to_i, params[:booking]["cleaning_start(5i)"].to_i)
     @cleaners = City.find(@booking.customer_city_id).cleaners
-    @booking.customer_id = @customer.id
+    if not current_admin.nil?
+      @booking.customer_id = 48
+    end
     @cleaners.each do |cleaner|
         if cleaner.date.nil? || cleaner.date <= @booking.cleaning_start
           cleaner.update_attribute(:date, @booking.cleaning_start + 2.hours )
           @booking.cleaner_id = cleaner.id
             if @booking.save
-              format.html { redirect_to @customer, notice: "Account Created, Cleaner name: #{Cleaner.find(@booking.cleaner_id).first_name}" }
-              format.json { render :show, status: :created, location: @customer }
-              ExampleMailer.sample_email(cleaner).deliver
+              redirect_to booking_path(@booking), notice: "Cleaner name: #{Cleaner.find(@booking.cleaner_id).first_name}"
               break
             else
-              format.html { redirect_to @customer, notice: "Account created, Sorry We cant Help you " }
-              format.json { render :show, status: :created, location: @customer }
+              render 'new', notice: "Sorry"
               break
             end
-        else
-          format.html { redirect_to @customer, notice: "Account Created, Sorry We cant Help you " }
-          format.json { render :show, status: :created, location: @customer }
-          break
         end
+    end
+    if @booking.cleaner_id.nil?
+      render 'new', notice: "Sorry"
     end
   end
 
