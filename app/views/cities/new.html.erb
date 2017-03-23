@@ -1,0 +1,27 @@
+<div class = "form-horizontal">
+<%= form_for(@city) do |f| %>
+  <% if @city.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@city.errors.count, "error") %> prohibited this city from being saved:</h2>
+
+      <ul>
+      <% @city.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= f.label :City_Name , class: 'col-sm-2 control-label',  autocomplete: "off" %>
+    <div class="col-sm-5">
+      <%= f.text_field :name , class: "form-control"%>
+    </div>
+  </div>
+
+  <div class="actions text-center col-sm-5">
+    <%= f.submit "Add City",:class => "btn btn-primary" %>
+  </div>
+
+<% end %>
+</div>

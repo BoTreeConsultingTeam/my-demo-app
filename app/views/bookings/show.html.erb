@@ -1,13 +1,13 @@
 <p id="notice"><%= notice %></p>
-
+<h2>Your Booking is here!</h2>
 <p>
   <strong>Customer:</strong>
-  <%= @booking.customer %>
+  <%= @booking.customer.first_name %>
 </p>
 
 <p>
   <strong>Cleaner:</strong>
-  <%= @booking.cleaner %>
+  <%= @booking.cleaner.first_name %>
 </p>
 
 <p>
@@ -15,5 +15,5 @@
   <%= @booking.date %>
 </p>
 
-<%= link_to 'Edit', edit_booking_path(@booking) %> |
-<%= link_to 'Back', bookings_path %>
+
+<%= link_to 'New Booking', new_customer_path %>

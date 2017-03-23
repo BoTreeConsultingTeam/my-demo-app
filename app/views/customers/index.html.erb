@@ -1,8 +1,10 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Listing Customers</h1>
-
-<table>
+<h1>Customers</h1>
+<div class="ibox-tools">
+  <%= link_to 'New Customer', new_customer_path, :class => 'btn btn-success btn-xs'%>
+</div>
+<table class="table table-hover col-sm-5">
   <thead>
     <tr>
       <th>First name</th>
@@ -18,14 +20,18 @@
         <td><%= customer.first_name %></td>
         <td><%= customer.last_name %></td>
         <td><%= customer.phone_number %></td>
-        <td><%= link_to 'Show', customer %></td>
-        <td><%= link_to 'Edit', edit_customer_path(customer) %></td>
-        <td><%= link_to 'Destroy', customer, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td>
+          <table>
+            <tr>
+              <td><%= link_to 'Show', customer %>&nbsp;&nbsp;</td>
+              <td><%= link_to 'Edit', edit_customer_path(customer) %>&nbsp;&nbsp;</td>
+              <td><%= link_to 'Destroy', customer, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            </tr>
+          </table>
+        </td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
 <br>
-
-<%= link_to 'New Customer', new_customer_path %>

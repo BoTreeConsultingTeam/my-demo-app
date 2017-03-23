@@ -1,3 +1,4 @@
+<div class="form-horizontal">
 <%= form_for(@cleaner) do |f| %>
   <% if @cleaner.errors.any? %>
     <div id="error_explanation">
@@ -10,20 +11,44 @@
       </ul>
     </div>
   <% end %>
+    <div class="form-group">
+      <%= f.label :first_name , class: 'col-sm-2 control-label',  autocomplete: "off" %>
+      <div class="col-sm-5">
+        <%= f.text_field :first_name , class: "form-control"%>
+      </div>
+    </div>
+    <div class="form-group">
+      <%= f.label :last_name , class: 'col-sm-2 control-label',  autocomplete: "off" %>
+      <div class="col-sm-5">
+        <%= f.text_field :last_name , class: "form-control"%>
+      </div>
+    </div>
+    <div class="form-group">
+      <%= f.label :email , class: 'col-sm-2 control-label',  autocomplete: "off" %>
+      <div class="col-sm-5">
+        <%= f.text_field :email , class: "form-control"%>
+      </div>
+    </div>
+    <div class="form-group">
+      <%= f.label :quality_score , class: 'col-sm-2 control-label',  autocomplete: "off" %>
+      <div class="col-sm-5">
+        <%= f.text_field :quality_score , class: "form-control"%>
+      </div>
+    </div>
+    <div class="form-group">
+      <%= f.label :Cities , class: 'col-sm-2 control-label',  autocomplete: "off" %>
+      <div class = "col-sm-5">
+        <%= f.collection_check_boxes :city_ids, City.all, :id, :name do |b| %>
+          <div class="collection_check_boxes">
+            <%= b.check_box %>
+            <%= b.label %>
+          </div>
+        <% end %>
+      </div>
+  </div>
 
-  <div class="field">
-    <%= f.label :first_name %><br>
-    <%= f.text_field :first_name %>
-  </div>
-  <div class="field">
-    <%= f.label :last_name %><br>
-    <%= f.text_field :last_name %>
-  </div>
-  <div class="field">
-    <%= f.label :quality_score %><br>
-    <%= f.text_field :quality_score %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+  <div class="actions text-center col-sm-5">
+      <%= f.submit "Create Cleaner",:class => "btn btn-primary" %>
+    </div>
 <% end %>
+</div>

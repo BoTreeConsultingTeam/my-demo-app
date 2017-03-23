@@ -1,14 +1,18 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Listing Cleaners</h1>
+<h1>Cleaners</h1>
+<hr>
+<div class="ibox-tools">
+  <%= link_to 'New Cleaner', new_cleaner_path , :class => 'btn btn-success btn-xs'%>
+</div>
 
-<table>
+<table  class="table table-hover col-sm-5">
   <thead>
     <tr>
       <th>First name</th>
       <th>Last name</th>
       <th>Quality score</th>
-      <th colspan="3"></th>
+      <th>Action</th>
     </tr>
   </thead>
 
@@ -18,14 +22,16 @@
         <td><%= cleaner.first_name %></td>
         <td><%= cleaner.last_name %></td>
         <td><%= cleaner.quality_score %></td>
-        <td><%= link_to 'Show', cleaner %></td>
-        <td><%= link_to 'Edit', edit_cleaner_path(cleaner) %></td>
-        <td><%= link_to 'Destroy', cleaner, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td>
+          <table>
+            <tr>
+              <td><%= link_to 'Show', cleaner %>&nbsp;&nbsp;</td>
+              <td><%= link_to 'Edit', edit_cleaner_path(cleaner) %>&nbsp;&nbsp;</td>
+              <td><%= link_to 'Destroy', cleaner, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            </tr>
+          </table>
+        </td>
       </tr>
     <% end %>
   </tbody>
 </table>
-
-<br>
-
-<%= link_to 'New Cleaner', new_cleaner_path %>

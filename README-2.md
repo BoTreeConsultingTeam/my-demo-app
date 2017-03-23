@@ -5,7 +5,7 @@ The following deliverables are not required but are nice-to-haves. If you choose
 **Bonus Deliverables**
 
 - Use bootstrap to make the application look a little better, especially the pages seen by our customers.
-- Use devise to secure the admin pages on our site. Customers and cleaners do not need to be able to login at the moment.
+- Use devise to secure the admin pages on our site. Customers and cleaners do not need to be able to login   at the moment.
 - The Cleaner form should have one additional field: 'email'
 - Email should be required
 - Check that it is a valid email address
