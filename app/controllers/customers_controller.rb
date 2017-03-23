@@ -13,6 +13,7 @@ class CustomersController < ApplicationController
   end
 
   def new
+    redirect_to action: "index" if session[:customer_id] != nil
     if current_admin.nil?
       @customer = Customer.new
     else
