@@ -14,6 +14,10 @@
   <strong>Quality score:</strong>
   <%= @cleaner.quality_score %>
 </p>
+<p>
+  <strong>City:</strong>
+  <% @cleaner = Cleaner.connection_id %>
+</p>
 
 <%= link_to 'Edit', edit_cleaner_path(@cleaner) %> |
 <%= link_to 'Back', cleaners_path %>
