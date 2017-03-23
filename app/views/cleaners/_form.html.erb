@@ -12,18 +12,29 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :first_name %><br>
-    <%= f.text_field :first_name %>
-  </div>
-  <div class="field">
-    <%= f.label :last_name %><br>
-    <%= f.text_field :last_name %>
-  </div>
-  <div class="field">
-    <%= f.label :quality_score %><br>
-    <%= f.text_field :quality_score %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
+    <div>
+      <%= f.label :first_name %><br>
+      <%= f.text_field :first_name %>
+    </div>
+    <div>
+      <%= f.label :last_name %><br>
+      <%= f.text_field :last_name %>
+    </div>
+    <div>
+      <%= f.label :quality_score %><br>
+      <%= f.text_field :quality_score %>
+    </div>
+    <div>
+      <%= f.label "City Name" %><br />
+      <%= f.collection_check_boxes :city_names_ids, CityName.all, :id, :city do |b| %>
+        <div class="collection-check-box" id="checkbox">
+          <%= check_box_tag "cleaner[city_names_ids[]]" %>
+          <%= b.label %>
+        </div>
+      <% end %>
+    </div><br />
+    <div class="actions">
+      <%= f.submit %>
+    </div>
   </div>
 <% end %>
