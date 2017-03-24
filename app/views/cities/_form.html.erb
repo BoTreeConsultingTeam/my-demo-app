@@ -1,0 +1,18 @@
+<div class="form-horizontal">
+
+  <%= form_for(@city) do |f| %>
+
+    <div class="form-group">
+      <%= f.label :name, class: "col-sm-offset-2 col-sm-2 control-label"  %>
+      <div class = "col-sm-5">
+      <%= f.text_field :name, class: "form-control"  %>
+    </div>
+      <%= @city.errors.full_messages_for(:name).first %>
+    </div>
+    <div class="actions text-center col-sm-5 col-sm-offset-2">
+      <%= f.submit "Save", class: "btn btn-primary" %>
+    </div>
+
+  <% end %>
+
+</div>

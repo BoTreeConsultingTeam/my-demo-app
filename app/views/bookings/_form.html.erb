@@ -1,29 +1,25 @@
-<%= form_for(@booking) do |f| %>
-  <% if @booking.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@booking.errors.count, "error") %> prohibited this booking from being saved:</h2>
+<div class="form-horizontal">
 
-      <ul>
-      <% @booking.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+  <%= form_for @booking do |b| %>
+
+    <div class="form-group">
+      <%= b.label :City, class: "col-sm-offset-2 col-sm-2 control-label" %>
+      <div class = "col-sm-5">
+        <%= select_tag 'city_id', options_for_select(@cities.collect{ |i| [i.name, i.id]}), class: "form-control" %>
+      </div>
     </div>
+    <div class="form-group" id='datetimepicker2'>
+      <%= b.label :Enter_time, class: "col-sm-offset-2 col-sm-2 control-label" %>
+      <div class = "col-sm-5">
+        <%= b.datetime_select :cleaning_start, class: "form-control" %>
+      </div>
+    </div>
+    <br>
+    <br>
+    <div class="actions text-center col-sm-5 col-sm-offset-2">
+      <%= b.submit "Book", class: "btn btn-primary"%>
+    </div>
+
   <% end %>
 
-  <div class="field">
-    <%= f.label :customer_id %><br>
-    <%= f.text_field :customer_id %>
-  </div>
-  <div class="field">
-    <%= f.label :cleaner_id %><br>
-    <%= f.text_field :cleaner_id %>
-  </div>
-  <div class="field">
-    <%= f.label :date %><br>
-    <%= f.date_select :date %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+</div>

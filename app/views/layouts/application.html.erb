@@ -7,13 +7,17 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-
-<%= link_to 'Bookings', bookings_path %>
-<%= link_to 'Customers', customers_path %>
-<%= link_to 'Cleaners', cleaners_path %>
-<hr>
-
-<%= yield %>
-
+  <% if not current_admin.nil? %>
+    <%= link_to "Logout", destroy_admin_session_path, class: "btn btn-danger", method: :delete %>
+    <%= link_to "Home",root_path, class: "btn btn-default"  %>
+    <%= link_to "Manage Cleaner",cleaners_path, class: "btn btn-default"  %>
+    <%= link_to "Manage City",cities_path, class: "btn btn-default"  %>
+    <%= link_to "Bookings",bookings_path, class: "btn btn-default"  %>
+  <%else%>
+    <%= link_to "Admin Login", new_admin_session_path, class: "btn btn-success" %>
+    <%= link_to "Home",root_path, class: "btn btn-default"  %>
+  <%end%>
+<br>
+  <%= yield %>
 </body>
 </html>

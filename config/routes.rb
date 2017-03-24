@@ -1,6 +1,17 @@
 Rails.application.routes.draw do
-  root 'bookings#index'
 
+  get 'cities/new'
+
+  get 'cities/edit'
+
+  get 'cities/index'
+
+  devise_for :admins, controllers: { sessions: 'admin/sessions', registrations: 'admin/registrations' }
+  get 'welcome/index'
+
+  root 'welcome#index'
+
+  resources :cities
   resources :bookings
   resources :cleaners
   resources :customers
