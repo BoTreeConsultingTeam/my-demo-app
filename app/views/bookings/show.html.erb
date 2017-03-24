@@ -1,26 +1,21 @@
 <p id="notice"><%= notice %></p>
-
 <p>
   <strong>Customer:</strong>
   <%= @booking.customer.first_name %>&nbsp<%= @booking.customer.last_name %>
 </p>
-
 <p>
   <strong>Cleaner:</strong>
   <%= @booking.cleaner.first_name %>&nbsp<%= @booking.cleaner.last_name %>
 </p>
-
 <p>
   <strong>Start:</strong>
   <%= @booking.cleaning_start %>
 </p>
-
 <p>
   <strong>End:</strong>
   <%= @booking.cleaning_start + 2.hours%>
 </p>
-
 <p>
   <strong>City:</strong>
-  <%= City.where(id: @booking.customer_city_id).name %>
+  <%= City.find(@booking.customer_city_id).name %>
 </p>

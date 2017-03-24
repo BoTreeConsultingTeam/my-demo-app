@@ -1,33 +1,32 @@
 <div class="form-horizontal">
   <h2 align="center"> Book Cleaner Now ! </h2>
   <br>
-<%= form_for(@customer, :url => url_for(:controller => 'customers', :action => 'create'),) do |f| %>
+  <%= form_for @customer, url: customers_path do |f| %>
 
     <div class="form-group">
       <%= f.label :first_name, class: "col-sm-offset-2 col-sm-2 control-label" %>
       <div class = "col-sm-5">
         <%= f.text_field :first_name, class: "form-control" %>
       </div>
-      <%= @customer.errors.full_messages_for(:name)[0] %>
+      <%= @customer.errors.full_messages_for(:name).first %>
     </div>
-
     <div class="form-group">
       <%= f.label :last_name, class: "col-sm-offset-2 col-sm-2 control-label" %>
       <div class = "col-sm-5">
         <%= f.text_field :last_name, class: "form-control" %>
       </div>
-      <%= @customer.errors.full_messages_for(:name)[0] %>
+      <%= @customer.errors.full_messages_for(:name).first %>
     </div>
-
     <div class="form-group">
       <%= f.label :phone_number, class: "col-sm-offset-2 col-sm-2 control-label" %>
       <div class = "col-sm-5">
         <%= f.text_field :phone_number, class: "form-control" %>
       </div>
-      <%= @customer.errors.full_messages_for(:name)[0] %>
+      <%= @customer.errors.full_messages_for(:name).first %>
     </div>
 
     <%= f.fields_for (:booking) do |b| %>
+
       <div class="form-group" id='datetimepicker2'>
         <%= b.label :Enter_time, class: "col-sm-offset-2 col-sm-2 control-label" %>
         <div class = "col-sm-5">
@@ -40,11 +39,15 @@
           <%= select_tag 'city_id', options_for_select(@cities.collect{ |i| [i.name, i.id]}), class: "form-control" %>
         </div>
       </div>
+
     <% end %>
+
     <br>
     <br>
     <div class="actions text-center col-sm-5 col-sm-offset-2">
       <%= f.submit "Sign Up", class: "btn btn-primary"%>
     </div>
-<% end %>
+
+  <% end %>
+
 </div>

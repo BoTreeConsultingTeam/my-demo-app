@@ -1,4 +1,10 @@
 class CitiesController < ApplicationController
+  before_action :set_city, only: [:show, :edit, :destroy]
+
+  def index
+    @cities = City.all
+  end
+
   def new
     @city = City.new
   end
@@ -11,12 +17,13 @@ class CitiesController < ApplicationController
       render 'new'
     end
   end
+
   def show
-    @city = City.find(params[:id])
   end
+
   def edit
-    @city = City.find(params[:id])
   end
+
   def update
     if @city.update(city_params)
       redirect_to 'show'
@@ -24,19 +31,23 @@ class CitiesController < ApplicationController
       render 'edit'
     end
   end
+
   def destroy
-    @city = City.find(params[:id])
     if @city.destroy
       redirect_to @city
     else
       render @city
     end
   end
-  def index
-    @cities = City.all
-  end
+
   private
-  def city_params
-    params.require(:city).permit(:name)
-  end
+
+    def set_city
+      @city = City.find(params[:id])
+    end
+
+    def city_params
+      params.require(:city).permit(:name)
+    end
+
 end

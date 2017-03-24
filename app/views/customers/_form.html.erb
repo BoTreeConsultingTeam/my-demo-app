@@ -1,30 +1,34 @@
 <div class="form-horizontal">
-<%= form_for(@customer) do |f| %>
-  <div class="form-group">
-    <%= f.label :first_name, class: "col-sm-offset-2 col-sm-2 control-label" %>
-    <div class = "col-sm-5">
-      <%= f.text_field :first_name, class: "form-control" %>
+
+  <%= form_for(@customer) do |f| %>
+
+    <div class="form-group">
+      <%= f.label :first_name, class: "col-sm-offset-2 col-sm-2 control-label" %>
+      <div class = "col-sm-5">
+        <%= f.text_field :first_name, class: "form-control" %>
+      </div>
+      <%= @customer.errors.full_messages_for(:name)[0] %>
     </div>
-    <%= @customer.errors.full_messages_for(:name)[0] %>
-  </div>
-  <div class="form-group">
-    <%= f.label :last_name, class: "col-sm-offset-2 col-sm-2 control-label" %><br>
-    <div class = "col-sm-5">
-    <%= f.text_field :last_name, class: "form-control"  %>
-  </div>
-    <%= @customer.errors.full_messages_for(:name)[0] %>
-  </div>
-  <div class="form-group">
-    <%= f.label :phone_number, class: "col-sm-offset-2 col-sm-2 control-label" %><br>
-    <div class = "col-sm-5">
-    <%= f.text_field :phone_number, class: "form-control"  %>
-  </div>
-    <%= @customer.errors.full_messages_for(:name)[0] %>
-  </div>
-  <br>
-  <br>
-  <div class="actions text-center col-sm-5 col-sm-offset-2">
-    <%= f.submit "Update", class: "btn btn-primary"%>
-  </div>
-<% end %>
+    <div class="form-group">
+      <%= f.label :last_name, class: "col-sm-offset-2 col-sm-2 control-label" %><br>
+      <div class = "col-sm-5">
+      <%= f.text_field :last_name, class: "form-control"  %>
+    </div>
+      <%= @customer.errors.full_messages_for(:name)[0] %>
+    </div>
+    <div class="form-group">
+      <%= f.label :phone_number, class: "col-sm-offset-2 col-sm-2 control-label" %><br>
+      <div class = "col-sm-5">
+      <%= f.text_field :phone_number, class: "form-control"  %>
+    </div>
+      <%= @customer.errors.full_messages_for(:name)[0] %>
+    </div>
+    <br>
+    <br>
+    <div class="actions text-center col-sm-5 col-sm-offset-2">
+      <%= f.submit "Update", class: "btn btn-primary"%>
+    </div>
+
+  <% end %>
+
 </div>
