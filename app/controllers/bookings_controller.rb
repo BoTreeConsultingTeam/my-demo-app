@@ -1,6 +1,6 @@
 class BookingsController < ApplicationController
   before_action :set_booking, only: [:show, :edit, :update, :destroy]
-
+  before_action :authenticate_admin!
   # GET /bookings
   # GET /bookings.json
   def index
@@ -9,8 +9,7 @@ class BookingsController < ApplicationController
 
   # GET /bookings/1
   # GET /bookings/1.json
-  def show
-  end
+  def show; end
 
   # GET /bookings/new
   def new
@@ -18,14 +17,12 @@ class BookingsController < ApplicationController
   end
 
   # GET /bookings/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /bookings
   # POST /bookings.json
   def create
     @booking = Booking.new(booking_params)
-
     respond_to do |format|
       if @booking.save
         format.html { redirect_to @booking, notice: 'Booking was successfully created.' }
@@ -36,7 +33,6 @@ class BookingsController < ApplicationController
       end
     end
   end
-
   # PATCH/PUT /bookings/1
   # PATCH/PUT /bookings/1.json
   def update
@@ -50,7 +46,7 @@ class BookingsController < ApplicationController
       end
     end
   end
-
+  
   # DELETE /bookings/1
   # DELETE /bookings/1.json
   def destroy
@@ -62,13 +58,13 @@ class BookingsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_booking
-      @booking = Booking.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def booking_params
-      params.require(:booking).permit(:customer_id, :cleaner_id, :date)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_booking
+    @booking = Booking.find(params[:id])
+  end
+
+  def booking_params
+    params.require(:booking).permit(:customer_id, :cleaner_id, :date)
+  end
 end

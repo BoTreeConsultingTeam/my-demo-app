@@ -1,19 +1,15 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <strong>Customer:</strong>
-  <%= @booking.customer %>
-</p>
-
-<p>
-  <strong>Cleaner:</strong>
-  <%= @booking.cleaner %>
-</p>
-
-<p>
-  <strong>Date:</strong>
-  <%= @booking.date %>
-</p>
-
-<%= link_to 'Edit', edit_booking_path(@booking) %> |
-<%= link_to 'Back', bookings_path %>
+<div class="container-fluid">
+  <div class="raw">
+    <h5> <strong class="text-muted col-md-4">Customer: </strong>  <%= @booking.customer.first_name %></h5>
+  </div>
+  <div class="raw">
+    <h5> <strong class="text-muted col-md-4">Cleaner: </strong>    <%= @booking.cleaner.first_name %></h5>
+  </div>
+  <div class="raw">
+    <h5> <strong class="text-muted col-md-4">Date: </strong>   <%= @booking.date %></h5>
+  </div>
+  <div class="raw">
+    <%= link_to 'Edit', edit_booking_path(@booking),:class => 'btn btn-sm btn-success text-white'  %> |
+    <%= link_to 'Back', bookings_path,:class => 'btn btn-sm btn-success text-white'  %>
+  </div>
+</div>

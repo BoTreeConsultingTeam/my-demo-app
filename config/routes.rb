@@ -1,5 +1,16 @@
 Rails.application.routes.draw do
-  root 'bookings#index'
+  devise_for :admins
+  get 'cleanercities/edit'
+
+  get 'cleanercities/update'
+
+  get 'cleanercities/destroy'
+
+  get 'cities/new'
+
+  get 'cities/index'
+
+  root 'customers#new'
 
   resources :bookings
   resources :cleaners
