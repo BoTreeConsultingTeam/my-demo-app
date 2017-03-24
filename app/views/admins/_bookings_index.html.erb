@@ -1,12 +1,12 @@
 <h1>Listing Bookings</h1>
-<div class="table_width">
+<div class = "table_width">
 <% if current_admin.nil? %>
-  <div class="float-right">
+  <div class = "float-right">
   <%= button_to  new_booking_path,method: :get,class: "btn btn-primary",title: 'Add New Booking' do %>
   <span class="glyphicon glyphicon-plus"></span>
   <% end %></div>
 <% end %>
-<table border=2 class="table table-bordered">
+<table border = 2 class = "table table-bordered">
   <tr>
     <th> Customer name </th>
     <th> Cleaner name </th>
@@ -15,10 +15,10 @@
   </tr>
 <% @bookings.each do |booking|%>
     <tr>
-      <td><%= booking.customer.first_name %> <%= booking.customer.last_name  %></td>
-      <td><%= booking.cleaner.first_name %> <%= booking.cleaner.last_name %></td>
+      <td><%= customer_name booking.customer %></td>
+      <td><%= cleaner_name booking.cleaner %></td>
       <td><%= booking.city.name %></td>
-      <td><%= booking.datetime.localtime.strftime("%m/%d/%Y %H:%M") %></td>
+      <td><%= booking_date booking.datetime %></td>
       <td><%= link_to  booking,title: ' Show Booking' do %>
         <span class="glyphicon glyphicon-eye-open"></span>
         <% end %></td>

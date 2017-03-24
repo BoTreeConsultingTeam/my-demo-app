@@ -9,7 +9,7 @@
         <li><%= link_to 'Customer', customers_path %></li>
         <li><%= link_to 'Bookings', bookings_path %></li>
         <li><%= link_to 'Cities', cities_path %></li>
-        <li><%= link_to 'logout', destroy_admin_session_path,method: :delete %></li>
+        <li><%= link_to 'Logout', destroy_admin_session_path,method: :delete %></li>
       <% else %>
         <% if session[:customer].nil? %>
           <li><%= link_to 'Customer', new_customer_path,method: :get %></li>

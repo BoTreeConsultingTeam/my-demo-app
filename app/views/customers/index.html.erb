@@ -9,7 +9,7 @@
   </tr>
 <% @customers.each do |customer|%>
     <tr>
-      <td><%= customer.first_name+' '+customer.last_name %></td>
+      <td><%= customer_name customer%></td>
       <td><%= customer.phone_number %></td>
       <td><%= link_to  customer do %>
             <span class="glyphicon glyphicon-eye-open"></span>
@@ -35,8 +35,8 @@
   </tr>
   <% @bookings.each do |booking|%>
   <tr>
-    <td><%= booking.datetime.localtime.strftime("%m/%d/%Y %H:%M") %></td>
-    <td><%= booking.cleaner.first_name %> <%= booking.cleaner.last_name %></td>
+    <td><%= booking_date booking.datetime %></td>
+    <td><%= cleaner_name booking.cleaner %></td>
     <td><%= booking.city.name %></td>
     <td><%= link_to  booking do %>
         <span class="glyphicon glyphicon-eye-open"></span>

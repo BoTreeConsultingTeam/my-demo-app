@@ -7,7 +7,6 @@ class Booking < ActiveRecord::Base
  validate :before_current_date
 
   def before_current_date
-    valid = datetime > DateTime.now
-    valid
+    datetime > DateTime.now
   end
 end

@@ -2,11 +2,11 @@
 
 <p>
   <strong>Customer:</strong>
-  <%= @booking.customer.first_name+' '+@booking.customer.last_name %>
+  <%= customer_name @booking.customer %>
 </p>
 <p>
   <strong>Cleaner:</strong>
-  <%= @booking.cleaner.first_name+' '+@booking.cleaner.last_name %>
+  <%= cleaner_name @booking.cleaner  %>
 </p>
 
 <p>
@@ -16,7 +16,7 @@
 
 <p>
   <strong>Time:</strong>
-  <%= @booking.datetime.localtime.strftime("%m/%d/%Y %H:%M") %>
+  <%= booking_date @booking.datetime %>
 </p>
 <%= link_to  bookings_path,title: 'Back All  Bookings' do %>
   <span class="glyphicon glyphicon-arrow-left"></span>

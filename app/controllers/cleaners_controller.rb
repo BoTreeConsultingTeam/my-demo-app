@@ -26,8 +26,8 @@ class CleanersController < ApplicationController
   # POST /cleaners
   # POST /cleaners.json
   def create
-    id_city = params[:city_ids]
-    unless id_city.nil?
+    city_id = params[:city_ids]
+    if !city_id.nil?
       @cleaner = Cleaner.new(cleaner_params)
       if @cleaner.save
         CitiesCleaner.add_city(@cleaner.id, params[:city_ids])
@@ -36,11 +36,11 @@ class CleanersController < ApplicationController
           format.json { render :show, status: :created, location: @cleaner }
         end
       else
-        render action: 'new'
+        render new_cleaner_path
       end
     else
       flash[:notice] = 'Please select At least one city'
-      redirect_to action: 'new'
+      redirect_to new_cleaner_path
     end
   end
 

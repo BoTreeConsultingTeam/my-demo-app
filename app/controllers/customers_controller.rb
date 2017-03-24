@@ -32,7 +32,7 @@ class CustomersController < ApplicationController
   def create
     if params[:commit] == 'Login'
       @customer = Customer.find_by(phone_number:params[:customer][:phone_number],password:params[:customer][:password])
-      unless @customer.nil?
+      if !@customer.nil?
         session[:customer] = @customer.id
         flash[:notice] = ''
         redirect_to customers_path
