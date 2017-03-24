@@ -1,5 +1,22 @@
-<h1>New Customer</h1>
-
-<%= render 'form' %>
-
-<%= link_to 'Back', customers_path %>
+<p class="error_message">
+  <%=flash[:invalid_customer] %>
+</p>
+<div class="login_signup">
+  <ul class="nav nav-tabs">
+    <li class="active">
+      <a data-toggle="tab" href="#login">Login</a>
+    </li>
+    <li>
+      <a data-toggle="tab" href="#sign_up">Sign up</a>
+    </li>
+  </ul>
+  <div class="tab-content">
+    <%= flash[:invalid_customer] %>
+    <div id="login" class="tab-pane fade in active">
+      <%= render 'login' %>
+    </div>
+    <div id="sign_up" class="tab-pane fade">
+      <%= render 'form' %>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,4 @@
+default:
+  set_duration_for_cleaning:
+    hours: 2
+  

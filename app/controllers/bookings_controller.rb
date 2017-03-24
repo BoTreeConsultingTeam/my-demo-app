@@ -1,74 +1,56 @@
 class BookingsController < ApplicationController
-  before_action :set_booking, only: [:show, :edit, :update, :destroy]
+  before_action :get_cities, only: [:new, :create]
 
-  # GET /bookings
-  # GET /bookings.json
   def index
-    @bookings = Booking.all
+    redirect_to customers_path
   end
 
-  # GET /bookings/1
-  # GET /bookings/1.json
-  def show
-  end
+  def show; end
 
-  # GET /bookings/new
   def new
-    @booking = Booking.new
+    if current_admin.nil?
+      @booking = Booking.new
+    else
+      redirect_to admins_path
+    end
   end
 
-  # GET /bookings/1/edit
   def edit
+    @city_cleaner_id = CitiesCleaner.where(city_id: params[:selectedCity]).pluck(:cleaner_id)
+    @cleaners = Cleaner.find(@city_cleaner_id)
+    render layout: false
   end
 
-  # POST /bookings
-  # POST /bookings.json
   def create
-    @booking = Booking.new(booking_params)
-
-    respond_to do |format|
+    @date = "#{params[:booking].values[0]}/#{params[:booking].values[1]}/#{params[:booking].values[2]}"
+    @time = "#{params[:booking].values[3]}:#{params[:booking].values[4]}"
+    @date_time = (@date + " " + @time).to_datetime
+    @city_id = params[:city][:booking]
+    @cleaner_id = params[:city][:cleaners]
+    @hours = (Settings.default.set_duration_for_cleaning.hours).hours
+    @records = Booking.where(datetime: @date_time - @hours..@date_time + @hours, cleaner_id: @cleaner_id)
+    if !@records.present?
+      @booking = Booking.new(cleaner_id: @cleaner_id, city_id: @city_id, customer_id: session[:customer_id], datetime: @date_time)
       if @booking.save
-        format.html { redirect_to @booking, notice: 'Booking was successfully created.' }
-        format.json { render :show, status: :created, location: @booking }
+        CleanerMailer.booked.deliver_later
+        redirect_to url_for(:controller => :customers, :action => :index)
       else
-        format.html { render :new }
-        format.json { render json: @booking.errors, status: :unprocessable_entity }
+        render :new
       end
+    else
+      flash[:select_another_cleaner] = 'Please, select another cleaner'
+      @booking = Booking.new
+      render :new
     end
   end
 
-  # PATCH/PUT /bookings/1
-  # PATCH/PUT /bookings/1.json
-  def update
-    respond_to do |format|
-      if @booking.update(booking_params)
-        format.html { redirect_to @booking, notice: 'Booking was successfully updated.' }
-        format.json { render :show, status: :ok, location: @booking }
-      else
-        format.html { render :edit }
-        format.json { render json: @booking.errors, status: :unprocessable_entity }
-      end
-    end
-  end
+  def update; end
 
-  # DELETE /bookings/1
-  # DELETE /bookings/1.json
-  def destroy
-    @booking.destroy
-    respond_to do |format|
-      format.html { redirect_to bookings_url, notice: 'Booking was successfully destroyed.' }
-      format.json { head :no_content }
-    end
-  end
+  def destroy; end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_booking
-      @booking = Booking.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def booking_params
-      params.require(:booking).permit(:customer_id, :cleaner_id, :date)
-    end
+  def get_cities
+    @cities = City.all
+  end
 end

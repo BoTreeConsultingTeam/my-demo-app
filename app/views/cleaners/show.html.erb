@@ -1,19 +1,25 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <strong>First name:</strong>
-  <%= @cleaner.first_name %>
-</p>
-
-<p>
-  <strong>Last name:</strong>
-  <%= @cleaner.last_name %>
-</p>
-
-<p>
-  <strong>Quality score:</strong>
-  <%= @cleaner.quality_score %>
-</p>
-
-<%= link_to 'Edit', edit_cleaner_path(@cleaner) %> |
-<%= link_to 'Back', cleaners_path %>
+<div class="panel panel-default">
+  <div class="panel-heading">Details of Booinks assigned to <%= full_name(@cleaner) %></div>
+  <div class="panel-body">
+    <table border="2" class="table table-hover table-striped">
+      <tr>
+        <th>Date</th>
+        <th>Customer name</th>
+        <th>City</th>
+      </tr>
+      <% @cleaner_booking.each do |booking| %>
+        <tr>
+          <td>
+            <%= booking.datetime %>
+          </td>
+          <td>
+            <%= full_name(booking.customer) %>
+          </td>
+          <td>
+            <%= booking.city.city_name %>
+          </td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+</div>

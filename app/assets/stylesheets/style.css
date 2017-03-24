@@ -1,0 +1,25 @@
+.login{
+  width: 45%;
+  margin-left: 25%;
+  margin-top: 15%;
+}
+.error_message{
+  font-size: medium;
+  color: red;
+}
+.new{
+  margin-left: 90.5%;
+  margin-bottom: 1%;
+}
+.logout{
+  margin-right: 50%;
+  font-size: 20px;
+}
+.login_signup{
+  width: 40%;
+  margin-top: 17%;
+  margin-left: 30%;
+  box-shadow: 2px 2px 5px gray;
+  padding: 2px;
+  border-radius: 0px 0px 10px;
+}

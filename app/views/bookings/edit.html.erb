@@ -1,6 +1,2 @@
-<h1>Editing Booking</h1>
-
-<%= render 'form' %>
-
-<%= link_to 'Show', @booking %> |
-<%= link_to 'Back', bookings_path %>
+<%= collection_select "city", "cleaners", @cleaners, :id, :first_name,
+    {selected: 0, include_blank: '--Cleaner--'}%>

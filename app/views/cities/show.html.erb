@@ -1,0 +1,55 @@
+<h2>Details of <%= @city.city_name %></h2>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    Bookings in <%= @city.city_name %>
+  </div>
+  <div class="panel-body">
+    <table border="2"  class="table table-hover table-striped">
+      <tr>
+        <th>Date</th>
+        <th>Customer</th>
+        <th>Cleaner</th>
+      </tr>
+      <% @city.bookings.each do |booking| %>
+        <tr>
+          <td>
+            <%= booking.datetime %>
+          </td>
+          <td>
+            <%= full_name(booking.customer) %>
+          </td>
+          <td>
+            <%= full_name(booking.cleaner) %>
+          </td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+</div>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    Cleaners working in <%= @city.city_name %>
+  </div>
+  <div class="panel-body">
+    <table border="2"  class="table table-hover table-striped">
+      <tr>
+        <th>Cleaner</th>
+        <th>Email</th>
+        <th>Quality Score</th>
+      </tr>
+      <% @city.cleaners.each do |cleaner| %>
+        <tr>
+          <td>
+            <%= full_name(cleaner) %>
+          </td>
+          <td>
+            <%= cleaner.email %>
+          </td>
+          <td>
+            <%= cleaner.quality_score %>
+          </td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+</div>
