@@ -1,6 +1,6 @@
-<% if current_admin.nil? && session[:customer_id].nil?%>
+<% if current_admin.nil? && session[:customer_id].nil? %>
   <%= redirect_to root_path %>
-<%elsif current_admin.nil?%>
+<%elsif current_admin.nil? %>
   <%= render "customer_index" %>
 <%else%>
   <%= render "admin_index" %>

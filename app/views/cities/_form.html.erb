@@ -1,22 +1,21 @@
 <div class="panel-body">
-<%= form_for(@city) do |f| %>
-  <% if @city.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@city.errors.count, "error") %> prohibited this cleaner from being saved:</h2>
-      <ul>
-        <% @city.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
+  <%= form_for(@city) do |f| %>
+    <% if @city.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@city.errors.count, "error") %> prohibited this cleaner from being saved:</h2>
+        <ul>
+          <% @city.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+            <% end %>
+        </ul>
+      </div>
+    <% end %>
+    <div class="field">
+      <%= f.label :city_name %><br>
+      <%= f.text_field :city_name %>
     </div>
-  <%end%>
-  <div class="field">
-    <%= f.label :city_name %><br>
-    <%= f.text_field :city_name %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<%end%>
-</div>
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+  <% end %>
 </div>

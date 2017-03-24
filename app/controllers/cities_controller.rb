@@ -1,20 +1,19 @@
 class CitiesController < ApplicationController
   before_action :set_city, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_admin!
+
   def index
     @cities = City.all
   end
 
-  def show
-  end
+  def show; end
 
   def destroy
     @city.destroy
     redirect_to action: 'index'
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
     if @city.update(set_params)

@@ -1,5 +1,5 @@
 <div class="panel panel-default">
-  <div class="panel-heading">Details of Booinks assigned to <%=@cleaner.first_name + " " + @cleaner.last_name %></div>
+  <div class="panel-heading">Details of Booinks assigned to <%= full_name(@cleaner) %></div>
   <div class="panel-body">
     <table border="2" class="table table-hover table-striped">
       <tr>
@@ -7,19 +7,19 @@
         <th>Customer name</th>
         <th>City</th>
       </tr>
-      <%@cleaner_booking.each do |booking| %>
+      <% @cleaner_booking.each do |booking| %>
         <tr>
           <td>
-            <%=booking.datetime %>
+            <%= booking.datetime %>
           </td>
           <td>
-            <%=booking.customer.first_name + " " + booking.customer.last_name%>
+            <%= full_name(booking.customer) %>
           </td>
           <td>
-            <%=booking.city.city_name%>
+            <%= booking.city.city_name %>
           </td>
         </tr>
-      <%end%>
+      <% end %>
     </table>
   </div>
 </div>

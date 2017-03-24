@@ -9,22 +9,22 @@
         <th>Details</th>
         <th>Delete</th>
       </tr>
-      <%@cities.each do |city| %>
+      <% @cities.each do |city| %>
         <tr>
           <td>
-            <%=city.city_name%>
+            <%= city.city_name %>
           </td>
           <td>
-            <%=link_to "Edit", edit_city_path(city)%>
+            <%= link_to "Edit", edit_city_path(city) %>
           </td>
           <td>
-            <%=link_to "Show", city_path(city)%>
+            <%= link_to "Show", city_path(city) %>
           </td>
           <td>
             <%= link_to 'Destroy', city, method: :delete, data: { confirm: 'Are you sure?' } %>
           </td>
         </tr>
-      <%end %>
+      <% end %>
     </table>
   </div>
 </div>

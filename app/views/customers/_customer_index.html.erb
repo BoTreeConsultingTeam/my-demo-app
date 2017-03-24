@@ -1,25 +1,25 @@
 <div class="panel panel-default">
   <div class="panel-heading">Your bookings</div>
-   <div class="panel-body">
-     <table border="2" class="table table-hover table-striped">
-       <tr>
-         <th>Date</th>
-         <th>Cleaner name</th>
-         <th>City</th>
-       </tr>
-       <%@bookings.each do |booking| %>
+  <div class="panel-body">
+    <table border="2" class="table table-hover table-striped">
+      <tr>
+        <th>Date</th>
+        <th>Cleaner name</th>
+        <th>City</th>
+      </tr>
+      <% @bookings.each do |booking| %>
         <tr>
           <td>
-            <%=booking.datetime %>
+            <%= booking.datetime %>
           </td>
           <td>
-            <%=booking.cleaner.first_name + " " + booking.cleaner.last_name%>
+            <%= full_name(booking.cleaner) %>
           </td>
           <td>
-            <%=booking.city.city_name%>
+            <%= booking.city.city_name %>
           </td>
         </tr>
-      <%end%>
+      <% end %>
     </table>
   </div>
 </div>

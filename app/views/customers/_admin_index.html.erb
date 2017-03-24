@@ -12,8 +12,8 @@
        <tbody>
          <% @customers.each do |customer| %>
            <tr>
-             <td><%=customer.first_name + " " + customer.last_name%></td>
-             <td><%=customer.phone_number%></td>
+             <td><%= full_name(customer) %></td>
+             <td><%= customer.phone_number %></td>
              <td>
                <%= link_to "show", customer_path(customer) %>
              </td>
@@ -22,5 +22,5 @@
        </tbody>
      </table>
    </div>
- </div>
+</div>
 </div>
