@@ -1,3 +1,4 @@
+# CustomersController
 class CustomersController < ApplicationController
   before_action :set_customer, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_admin!, only: [:index]
@@ -6,29 +7,31 @@ class CustomersController < ApplicationController
   def index
     @customers = Customer.all
   end
+
   # GET /customers/1
   # GET /customers/1.json
-  def show
-  end
+  def show; end
+
   # GET /customers/new
   def new
     @customer = Customer.new
   end
+
   # GET /customers/1/edit
   def edit
   end
   # POST /customers
   # POST /customers.json
+
   def create
     if phone_exist(params[:customer][:phone_number])
       @customer = Customer.find_by(phone_number: params[:customer][:phone_number])
-      customer_id = @customer.id
       flag = true
     else
       @customer = Customer.new(customer_params)
-      flag = @customer.save
-      customer_id = @customer.id
+      @customer.save
     end
+    customer_id = @customer.id
     respond_to do |format|
       if flag == true
         display = assign_cleaner(customer_id,params[:customer][:city_id],params[:customer][:date])
@@ -42,6 +45,7 @@ class CustomersController < ApplicationController
   end
   # PATCH/PUT /customers/1
   # PATCH/PUT /customers/1.json
+
   def update
     respond_to do |format|
       if @customer.update(customer_params)
@@ -53,6 +57,7 @@ class CustomersController < ApplicationController
       end
     end
   end
+
   # DELETE /customers/1
   # DELETE /customers/1.json
   def destroy
@@ -62,34 +67,31 @@ class CustomersController < ApplicationController
       format.json { head :no_content }
     end
   end
+
   def phone_exist(number)
-    Customer.find_by('phone_number = ?',number)
+    Customer.find_by('phone_number = ?', number)
   end
 
   def assign_cleaner(customer_id, customers_city_id, customers_date)
     cleaners = City.find(customers_city_id).cleaners
     cleaners.each do |cleaner|
-      if Booking.where('cleaner_id = ?',cleaner.id).where('date = ?',customers_date).count == 0
-
-        Booking.create(cleaner_id: cleaner.id,customer_id: customer_id,date: customers_date)
-        return "Assigned to #{cleaner.first_name} #{cleaner.last_name}
-          on  #{customers_date}."
+      if Booking.where('cleaner_id = ?', cleaner.id).where('date = ?', customers_date).count.zero?
+        Booking.create(cleaner_id: cleaner.id, customer_id: customer_id, date: customers_date)
+        return 'Work is Assigned to #{cleaner.first_name} #{cleaner.last_name}
+                on  #{customers_date}.'
       end
     end
-    return "sorry No cleaner available"
+    'No cleaner available,Sorry for inconvieniency'
   end
+  # Use callbacks to share common setup or constraints between actions.
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_customer
-      @customer = Customer.find(params[:id])
-    end
-    def add_bookings
 
-    end
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def customer_params
-      params.require(:customer).permit(:first_name, :last_name, :phone_number, :date, :city_id)
-    end
+  def set_customer
+    @customer = Customer.find(params[:id])
+  end
 
+  def customer_params
+    params.require(:customer).permit(:first_name, :last_name, :phone_number, :date, :city_id)
+  end
 end
