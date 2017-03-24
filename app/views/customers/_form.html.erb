@@ -31,7 +31,7 @@
 </div>
 <div class="field">
   <%= f.label :City %>
-  <%= select_tag "city", options_for_select(City.all.collect{ |u| [u.city_name, u.id]}) %>
+  <%= select_tag "city", options_for_select(City.all.collect{ |u| [u.city_name, u.id]}),{:include_blank => 'Choose a city'} %>
 </div>
 <div class="actions">
   <%= f.submit %>

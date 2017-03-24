@@ -17,7 +17,8 @@
   <%= @customer.phone_number %>
 </p>
 
-<% if @bookings %>
+<% if @bookings.present? %>
+<h2>Your previous bookings</h2>
 <div id="content" class="col-xs-9">
 <table class="table table-hover table-bordered">
   <thead>

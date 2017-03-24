@@ -28,7 +28,7 @@
   </div>
   <div class="field">
   <%= f.label :Cities %><br>
-  <% City.all.each do |city| %>
+  <% @cities.each do |city| %>
         <%= check_box_tag 'city_ids[]', city.id -%>
         <%= h city.city_name -%>
   <% end %>

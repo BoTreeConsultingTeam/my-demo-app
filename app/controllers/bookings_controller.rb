@@ -11,7 +11,6 @@ class BookingsController < ApplicationController
   # GET /bookings/1
   # GET /bookings/1.json
   def show
-    puts @booking
   end
 
   # GET /bookings/new

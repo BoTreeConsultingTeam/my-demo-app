@@ -30,11 +30,10 @@ class CustomersController < ApplicationController
     @customer = Customer.new(customer_params)
     result = set_customer_detail(params[:customer])
     respond_to do |format|
-      if result
+      if result 
         event = params[:customer]
         date = Date.new event["date(1i)"].to_i, event["date(2i)"].to_i, event["date(3i)"].to_i
         booking_done = booking_cleaner(date,params[:city])
-        puts booking_cleaner(date,params[:city])
         if booking_done 
           format.html { redirect_to booking_path(@booking.id), notice: 'Congratulations Booking is successfully created !' }
         else
@@ -95,13 +94,13 @@ class CustomersController < ApplicationController
     def booking_cleaner(date,city)
       city = City.find(city)
       cleaners = city.cleaners
-      return false if cleaners.count == 0
+      return false if !cleaners.present?
       cleaners.each do |cleaner|
         booking = cleaner.bookings.where(date: date).any?
-        unless booking
+        if  !booking
           @booking = Booking.create(customer: @customer,cleaner: cleaner,date: date)
           if @booking.save
-            ExampleMailer.sample_email(cleaner,@booking,@customer).deliver_now
+            ExampleMailer.booking_email(cleaner,@booking,@customer).deliver_now
             return true
           end
         else
