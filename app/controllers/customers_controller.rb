@@ -53,15 +53,15 @@ class CustomersController < ApplicationController
   def assign_cleaner(customer_id,customers_city_id,customers_date)
     cleaners = City.find(customers_city_id).cleaner.where(email_confirmed: true)
     cleaners.each do |cleaner|
-      if cleaner_available_for_date(cleaner,customers_date)
+      unless cleaner_available_for_date(cleaner,customers_date)
 
         Booking.create(cleaner_id: cleaner.id,customer_id: customer_id,date: customers_date)
 
         # Send email to cleaner for new work assignment
         send_email(cleaner,customers_date)
 
-        return "Dear Customer, Your home cleaning duty is assign to #{cleaner.first_name} #{cleaner.last_name}
-          on the date #{customers_date}."
+        return "Dear Customer, Your home cleaning duty is assign to #{cleaner.first_name}
+          #{cleaner.last_name} on the date #{customers_date}."
       end
     end
     "Dear Customer, Sorry to inform you that because of heavy booking their
@@ -70,7 +70,7 @@ class CustomersController < ApplicationController
   end
 
   def cleaner_available_for_date(cleaner,customers_date)
-    Booking.where('cleaner_id = ?',cleaner).where('date = ?',customers_date).count == 0 ? true : false
+    Booking.where('cleaner_id = ?',cleaner).where('date = ?',customers_date).present?
   end
 
   def send_email(cleaner,customers_date)

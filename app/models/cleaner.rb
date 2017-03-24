@@ -8,4 +8,6 @@ class Cleaner < ActiveRecord::Base
   validates :first_name, presence: true
   validates :last_name, presence: true
   validates :quality_score, presence: true
+
+  scope :all_cleaner, -> { ( order(id: :desc) ) }
 end

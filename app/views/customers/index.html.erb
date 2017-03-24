@@ -4,7 +4,7 @@
     <li class="active">Customers</li>
     <p class="pull-right text-white"><%= link_to "New Customer",new_customer_path, class: "btn btn-success btn-xs" %></p>
   </ol>
-  <% if not notice.nil?  %>
+  <% if notice.present?  %>
     <div class="alert alert-success" role="alert" id="notice"><%= notice %>
       <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>
@@ -21,21 +21,20 @@
         <th>First name</th>
         <th>Last name</th>
         <th>Phone number</th>
-        <th colspan="3"></th>
+        <th colspan="3">Actions</th>
       </tr>
     </thead>
 
     <tbody>
-      <% sr = 0 %>
-      <% @customers.each do |customer| %>
+      <% @customers.each_with_index do |customer,index| %>
         <tr>
-          <td><%= sr += 1 %></td>
+          <td><%= index + 1 %></td>
           <td><%= customer.first_name %></td>
           <td><%= customer.last_name %></td>
           <td><%= customer.phone_number %></td>
           <td><%= link_to 'Show', customer %></td>
           <td><%= link_to 'Edit', edit_customer_path(customer) %></td>
-          <td class='text-danger'><%= link_to 'Destroy', customer, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <td><%= link_to 'Destroy', customer, method: :delete, data: { confirm: 'Are you sure?' } %></td>
         </tr>
       <% end %>
     </tbody>

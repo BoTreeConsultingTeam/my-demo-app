@@ -4,7 +4,7 @@
     <li class="active">Cleaners</li>
     <p class="pull-right text-white"><%= link_to "New Cleaner",new_cleaner_path, class: "btn btn-success btn-xs" %></p>
   </ol>
-  <% if not notice.nil?  %>
+  <% if notice.present?  %>
     <div class="alert alert-success" role="alert" id="notice"><%= notice %>
       <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>
@@ -27,18 +27,16 @@
       </thead>
 
       <tbody>
-        <% sr = 0 %>
-        <% @cleaners.each do |cleaner| %>
+        <% @cleaners.each_with_index do |cleaner, index| %>
           <tr>
-            <td><%= sr += 1 %></td>
+            <td><%= index + 1 %></td>
             <td><%= cleaner.first_name %></td>
             <td><%= cleaner.last_name %></td>
             <td><%= cleaner.quality_score %></td>
             <td><%= cleaner.email %></td>
-            <% verification_state = cleaner.email_confirmed ? "primary" : "danger" %>
             <td>
-              <span class="label label-<%= verification_state %>">
-                <%= cleaner.email_confirmed ? "Verified" : "Unverified" %>
+              <span class="label label-<%= verification_state_btn(cleaner.email_confirmed) %>">
+                <%= verification_state_msg(cleaner.email_confirmed) %>
               </span>
             </td>
             <td><%= link_to 'Show', cleaner %></td>

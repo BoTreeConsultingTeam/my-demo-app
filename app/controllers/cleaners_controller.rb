@@ -5,7 +5,7 @@ class CleanersController < ApplicationController
   # GET /cleaners
   # GET /cleaners.json
   def index
-    @cleaners = Cleaner.all.order(id: :desc)
+    @cleaners = Cleaner.all_cleaner
   end
 
   # GET /cleaners/1
@@ -33,7 +33,7 @@ class CleanersController < ApplicationController
         # Use to add all cities of cleaner where he/she work
         add_cities(@cleaner.id)
 
-        UserEmail.confirm_email(@cleaner).deliver
+        UserEmail.confirm_email(@cleaner).deliver_now
 
         format.html { redirect_to @cleaner, notice: 'Cleaner was successfully created.' }
         format.json { render :show, status: :created, location: @cleaner }
@@ -55,13 +55,12 @@ class CleanersController < ApplicationController
   end
 
   def confirmed
-    # empty
   end
 
   def add_cities(cleaner_id)
     city_ids = params[:cleaner][:city_ids]
     city_ids.each do |city|
-      CleanersCity.create!(city_id: city, cleaner_id: cleaner_id) if !(city_ids.nil?)
+      CleanersCity.create!(city_id: city, cleaner_id: cleaner_id) unless city.blank?
     end
   end
 

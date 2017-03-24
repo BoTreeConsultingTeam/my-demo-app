@@ -1,10 +1,10 @@
 class CitiesController < ApplicationController
   before_action :set_city, only: [:edit, :update, :destroy]
-  before_action :all_city, only: [:index, :create, :update]
   before_action :authenticate_admin!
 
 
   def index
+    @cities = City.all
   end
 
   def new
@@ -57,9 +57,5 @@ class CitiesController < ApplicationController
 
   def set_city
     @city = City.find(params[:id])
-  end
-
-  def all_city
-    @cities = City.all
   end
 end
