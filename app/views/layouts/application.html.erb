@@ -8,12 +8,9 @@
 </head>
 <body>
 
-<%= link_to 'Bookings', bookings_path %>
-<%= link_to 'Customers', customers_path %>
-<%= link_to 'Cleaners', cleaners_path %>
+<%= render 'layouts/navigation_link' %>
 <hr>
-
-<%= yield %>
+<center><%= yield %></center>
 
 </body>
 </html>

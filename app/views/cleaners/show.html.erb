@@ -15,5 +15,18 @@
   <%= @cleaner.quality_score %>
 </p>
 
-<%= link_to 'Edit', edit_cleaner_path(@cleaner) %> |
-<%= link_to 'Back', cleaners_path %>
+<p>
+  <strong>Email:</strong>
+  <%= @cleaner.email %>
+</p>
+
+<p>
+  <strong>city:</strong>
+  <%= @cleaner.cities.pluck(:name).join(',') %>
+</p>
+<%= link_to edit_cleaner_path(@cleaner),title: 'Edit Cleaner' do %>
+  <span class="glyphicon glyphicon-pencil"></span>
+<% end %>|
+<%= link_to  cleaners_path,title: 'Back All Cleaner' do %>
+  <span class="glyphicon glyphicon-arrow-left"></span>
+<% end %>

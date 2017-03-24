@@ -1,5 +1,10 @@
+<center>
 <h1>New Booking</h1>
 
 <%= render 'form' %>
 
-<%= link_to 'Back', bookings_path %>
+ <%= link_to  bookings_path,title: 'Back to All Booking' do %>
+   <span class="glyphicon glyphicon-arrow-left"></span>
+ <% end %>
+
+</center>

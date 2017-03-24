@@ -1,19 +1,20 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>First name:</strong>
-  <%= @customer.first_name %>
-</p>
-
-<p>
-  <strong>Last name:</strong>
-  <%= @customer.last_name %>
+  <strong>Full name:</strong>
+  <%= customer_name @customer %>
 </p>
 
 <p>
   <strong>Phone number:</strong>
   <%= @customer.phone_number %>
 </p>
+<% if current_admin.nil?%>
 
-<%= link_to 'Edit', edit_customer_path(@customer) %> |
-<%= link_to 'Back', customers_path %>
+    <%= link_to edit_customer_path(@customer),title: 'Edit Customer' do %>
+      <span class="glyphicon glyphicon-pencil"></span>
+    <% end %>|
+<% end %>
+<%= link_to  customers_path,title: 'Back All Customers' do %>
+  <span class="glyphicon glyphicon-arrow-left"></span>
+<% end %>

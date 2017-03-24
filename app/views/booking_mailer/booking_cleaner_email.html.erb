@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h3>Hi <%= @cleaner.cleaner.first_name+' '+@cleaner.cleaner.last_name %></h3>
+    <h4>Congratulation</h4>
+    <p>
+      You are Booked for Cleaning at <b><%= @cleaner.customer.first_name %>
+        <%= @cleaner.customer.last_name %>'s</b>
+      place in <b><%= @cleaner.city.name %></b> on <b><%= @cleaner.datetime %></b>
+    </p>
+  </body>
+</html>

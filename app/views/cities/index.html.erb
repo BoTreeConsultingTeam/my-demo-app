@@ -1,0 +1,36 @@
+<h2>City List</h2>
+<div class="table_width">
+  <div class="float-right">
+  <%= button_to  new_city_path,method: :get,class: "btn btn-primary",title: 'Add New City' do %>
+  <span class="glyphicon glyphicon-plus"></span>
+  <% end %></div>
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th colspan="3">Action</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @cities.each do |city| %>
+      <tr>
+        <td><%= city.name %></td>
+        <td><%= link_to  city,title:"Show City" do%>
+              <span class="glyphicon glyphicon-eye-open"></span>
+            <% end %>
+        </td>
+        <td><%= link_to edit_city_path(city),title:"Edit City" do %>
+            <span class="glyphicon glyphicon-pencil"></span>
+            <% end %>
+        </td>
+        <td><%= link_to  city, method: :delete, data: { confirm: 'Are you sure?' },title:"Delete City" do %>
+            <span class="glyphicon glyphicon-trash"></span>
+            <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+</div>
+<br>

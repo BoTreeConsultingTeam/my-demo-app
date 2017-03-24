@@ -2,18 +2,22 @@
 
 <p>
   <strong>Customer:</strong>
-  <%= @booking.customer %>
+  <%= customer_name @booking.customer %>
 </p>
-
 <p>
   <strong>Cleaner:</strong>
-  <%= @booking.cleaner %>
+  <%= cleaner_name @booking.cleaner  %>
 </p>
 
 <p>
-  <strong>Date:</strong>
-  <%= @booking.date %>
+  <strong>City:</strong>
+  <%= @booking.city.name %>
 </p>
 
-<%= link_to 'Edit', edit_booking_path(@booking) %> |
-<%= link_to 'Back', bookings_path %>
+<p>
+  <strong>Time:</strong>
+  <%= booking_date @booking.datetime %>
+</p>
+<%= link_to  bookings_path,title: 'Back All  Bookings' do %>
+  <span class="glyphicon glyphicon-arrow-left"></span>
+  <% end %>

@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @city.name%>
+</p>
+
+<%= link_to  edit_city_path(@city),title: 'Edit City' do %>
+  <span class="glyphicon glyphicon-pencil"></span>
+<% end %>
+ |
+<%= link_to  cities_path,title: 'Back All City' do %>
+  <span class="glyphicon glyphicon-arrow-left"></span>
+<% end %>
