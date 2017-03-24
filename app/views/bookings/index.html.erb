@@ -21,7 +21,7 @@
         <td><%= booking.cleaner.first_name %>&nbsp<%= booking.cleaner.last_name %></td>
         <td><%= booking.cleaning_start %></td>
         <td><%= booking.cleaning_start + 2.hours %></td>
-        <td><%= City.find(booking.customer_city_id).name %></td>
+        <td><%= booking.city.name %></td>
         <td><%= link_to 'Destroy', booking, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
