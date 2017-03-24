@@ -1,4 +1,6 @@
-<p id="notice"><%= notice %></p>
+<% if notice %>
+<p id="notice" class="alert alert-info"><%= notice %></p>
+<% end %>
 
 <p>
   <strong>First name:</strong>
@@ -15,5 +17,28 @@
   <%= @customer.phone_number %>
 </p>
 
-<%= link_to 'Edit', edit_customer_path(@customer) %> |
-<%= link_to 'Back', customers_path %>
+<% if @bookings.present? %>
+<h2>Your previous bookings</h2>
+<div id="content" class="col-xs-9">
+<table class="table table-hover table-bordered">
+  <thead>
+    <tr>
+      <th>Customer</th>
+      <th>Cleaner</th>
+      <th>Date</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @bookings.each do |booking| %>
+      <tr>
+        <td><%= booking.customer.first_name %></td>
+        <td><%= booking.cleaner.first_name %></td>
+        <td><%= booking.date %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<% end %>
+<%= link_to 'Back', new_customer_path %>
+</div>

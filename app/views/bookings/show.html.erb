@@ -1,13 +1,14 @@
-<p id="notice"><%= notice %></p>
-
+<% if notice%>
+<p id="notice" class="alert alert-success"><%= notice %></p>
+<% end %>
 <p>
   <strong>Customer:</strong>
-  <%= @booking.customer %>
+  <%= @booking.customer.first_name %>
 </p>
 
 <p>
   <strong>Cleaner:</strong>
-  <%= @booking.cleaner %>
+  <%= @booking.cleaner.first_name %>
 </p>
 
 <p>

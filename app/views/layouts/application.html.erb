@@ -7,12 +7,18 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-
+<% if admin_signed_in? %>
 <%= link_to 'Bookings', bookings_path %>
 <%= link_to 'Customers', customers_path %>
 <%= link_to 'Cleaners', cleaners_path %>
+  Logged in as <strong><%= current_admin.email %></strong>.
+  <%= link_to 'Edit profile', edit_admin_registration_path, :class => 'navbar-link btn-info btn-sm' %> |
+  <%= link_to "Logout", destroy_admin_session_path, method: :delete, :class => 'navbar-link btn-danger btn-sm'  %>
+<% else %>
+  <%= link_to "Sign up", new_admin_registration_path, :class => 'navbar-link btn-info btn-sm'  %> |
+  <%= link_to "Admin Login", new_admin_session_path, :class => 'navbar-link btn-info btn-sm'  %>
+<% end %>
 <hr>
-
 <%= yield %>
 
 </body>

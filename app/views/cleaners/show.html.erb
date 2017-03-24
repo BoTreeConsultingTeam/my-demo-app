@@ -15,5 +15,27 @@
   <%= @cleaner.quality_score %>
 </p>
 
+<div>
+<table>
+  <thead>
+    <tr>
+      <th>Customer</th>
+      <th>Cleaner</th>
+      <th>Date</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @bookings.each do |booking| %>
+      <tr>
+        <td><%= booking.customer.first_name %></td>
+        <td><%= booking.cleaner.first_name %></td>
+        <td><%= booking.date %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+</div>
+
 <%= link_to 'Edit', edit_cleaner_path(@cleaner) %> |
 <%= link_to 'Back', cleaners_path %>
