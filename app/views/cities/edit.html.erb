@@ -4,14 +4,6 @@
     <li><%= link_to "Cities", cities_path %></li>
     <li class="active">Edit <%= @city.name %></li>
   </ol>
-  <% if notice.present?  %>
-    <div class="alert alert-success" role="alert" id="notice"><%= notice %>
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-  <% end %>
-
-<%= render 'form' %>
-
+  <%= render 'layouts/notice' %>
+  <%= render 'form' %>
 </div>

@@ -4,14 +4,7 @@
     <li><%= link_to "Cleaners", cleaners_path %></li>
     <li class="active">Cleaner</li>
   </ol>
-  <% if notice.present?  %>
-    <div class="alert alert-success" role="alert" id="notice"><%= notice %>
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-  <% end %>
-
+  <%= render 'layouts/notice' %>
   <div class="jumbotron">
     <p>
       <strong>Email Address:</strong>
@@ -35,7 +28,7 @@
 
     <p>
       <strong>Email Varification:</strong>
-      <%= @cleaner.email_confirmed ? "Verified" : "Unverified" %>
+      <%= verification_state_msg(@cleaner.email_confirmed) %>
     </p>
 
     <p>

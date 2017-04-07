@@ -8,13 +8,7 @@
       <li class="active">Customer Sign Up & Schedule</li>
     <% end %>
   </ol>
-  <% if notice.present?  %>
-    <div class="alert alert-success" role="alert" id="notice"><%= notice %>
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-  <% end %>
+  <%= render 'layouts/notice' %>
 
   <center><h2>Customer Sign Up & Schedule</h2></center><br>
 

@@ -19,15 +19,14 @@ class CustomersController < ApplicationController
   end
 
   # GET /customers/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /customers
   # POST /customers.json
   def create
     respond_to do |format|
       if add_customer
-        message = assign_cleaner(@customer.id,params[:customer][:city_id],params[:customer][:date])
+        message = assign_cleaner
         format.html { redirect_to @customer, notice: message }
         format.json { render :show, status: :created, location: @customer }
       else
@@ -38,43 +37,43 @@ class CustomersController < ApplicationController
   end
 
   def add_customer
-    if is_customer_exist(params[:customer][:phone_number])
+    if customer_exist?
       @customer = Customer.find_by(phone_number: params[:customer][:phone_number])
     else
-      @customer = Customer.new(customer_params)
-      @customer.save
+      @customer = Customer.create(customer_params)
     end
   end
 
-  def is_customer_exist(customers_phone_number)
-    Customer.find_by('phone_number = ?',customers_phone_number)
+  def customer_exist?
+    Customer.find_by_phone_number(params[:customer][:phone_number])
   end
 
-  def assign_cleaner(customer_id,customers_city_id,customers_date)
-    cleaners = City.find(customers_city_id).cleaner.where(email_confirmed: true)
+  def assign_cleaner
+    cleaners = City.find(params[:customer][:city_id]).cleaner.where(email_confirmed: true)
     cleaners.each do |cleaner|
-      unless cleaner_available_for_date(cleaner,customers_date)
-
-        Booking.create(cleaner_id: cleaner.id,customer_id: customer_id,date: customers_date)
-
+      unless cleaner_available_for_date(cleaner)
+        Booking.create(cleaner_id: cleaner.id, customer_id: @customer.id,
+                       date: params[:customer][:date])
         # Send email to cleaner for new work assignment
-        send_email(cleaner,customers_date)
-
-        return "Dear Customer, Your home cleaning duty is assign to #{cleaner.first_name}
-          #{cleaner.last_name} on the date #{customers_date}."
+        send_email(cleaner)
+        return "Dear Customer, Your home cleaning duty is assign to
+          #{cleaner.first_name} #{cleaner.last_name} on the date
+          #{params[:customer][:date]}."
       end
     end
     "Dear Customer, Sorry to inform you that because of heavy booking their
-      are no any cleaner available in you city for date #{customers_date}
+      are no any cleaner available in you city for date #{params[:customer][:date]}
       you choose. Please try for another date."
   end
 
-  def cleaner_available_for_date(cleaner,customers_date)
-    Booking.where('cleaner_id = ?',cleaner).where('date = ?',customers_date).present?
+  def cleaner_available_for_date(cleaner)
+    Booking.where('cleaner_id = ?', cleaner)
+           .where('date = ?', params[:customer][:date]).exists?
   end
 
-  def send_email(cleaner,customers_date)
-    UserEmail.send_lead_to_cleaner(cleaner,@customer,customers_date).deliver
+  def send_email(cleaner)
+    UserEmail.send_lead_to_cleaner(cleaner, @customer,
+                                   params[:customer][:date]).deliver
   end
 
   # PATCH/PUT /customers/1
@@ -86,7 +85,7 @@ class CustomersController < ApplicationController
         format.json { render :show, status: :ok, location: @customer }
       else
         format.html { render :edit }
-        format.json { render json: @customer.errors, status: :unprocessable_entity }
+        format.json { render json: @customer.errors,status: :unprocessable_entity }
       end
     end
   end
@@ -102,13 +101,16 @@ class CustomersController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_customer
-      @customer = Customer.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def customer_params
-      params.require(:customer).permit(:first_name, :last_name, :phone_number, :city_id, :date)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_customer
+    @customer = Customer.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet,
+  # only allow the white list through.
+  def customer_params
+    params.require(:customer).permit(:first_name, :last_name, :phone_number,
+                                     :city_id, :date)
+  end
 end
