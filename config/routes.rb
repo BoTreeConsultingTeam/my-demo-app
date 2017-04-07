@@ -1,8 +1,18 @@
 Rails.application.routes.draw do
-  root 'bookings#index'
+
+  root 'customers#new'
+
+  devise_for :admins
 
   resources :bookings
-  resources :cleaners
+
+  resources :cities
+
+  resources :cleaners do
+    get 'confirm_token/:token' => 'cleaners#confirm_token', as: 'confirm_email'
+  end
+
+
   resources :customers
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

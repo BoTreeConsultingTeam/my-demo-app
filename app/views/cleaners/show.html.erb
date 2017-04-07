@@ -1,19 +1,48 @@
-<p id="notice"><%= notice %></p>
+<div class="container">
+  <ol class="breadcrumb">
+    <li><%= link_to "Home Work", root_path %></li>
+    <li><%= link_to "Cleaners", cleaners_path %></li>
+    <li class="active">Cleaner</li>
+  </ol>
+  <%= render 'layouts/notice' %>
+  <div class="jumbotron">
+    <p>
+      <strong>Email Address:</strong>
+      <%= @cleaner.email %>
+    </p>
 
-<p>
-  <strong>First name:</strong>
-  <%= @cleaner.first_name %>
-</p>
+    <p>
+      <strong>First name:</strong>
+      <%= @cleaner.first_name %>
+    </p>
 
-<p>
-  <strong>Last name:</strong>
-  <%= @cleaner.last_name %>
-</p>
+    <p>
+      <strong>Last name:</strong>
+      <%= @cleaner.last_name %>
+    </p>
 
-<p>
-  <strong>Quality score:</strong>
-  <%= @cleaner.quality_score %>
-</p>
+    <p>
+      <strong>Quality score:</strong>
+      <%= @cleaner.quality_score %>
+    </p>
 
-<%= link_to 'Edit', edit_cleaner_path(@cleaner) %> |
-<%= link_to 'Back', cleaners_path %>
+    <p>
+      <strong>Email Varification:</strong>
+      <%= verification_state_msg(@cleaner.email_confirmed) %>
+    </p>
+
+    <p>
+      <strong>Work in City(s):</strong><br>
+      <div>
+        <% @cleaner.cities.each do |city| %>
+          <%= "#{city.name}" %><br>
+        <% end %>
+      </div>
+    </p>
+
+    <p>
+      <strong>Note: </strong>
+      No any work is assigned to cleaner, until he/she verifies email.
+    </p>
+  </div>
+</div>

@@ -1,19 +1,22 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <title>Homework</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Homework</title>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+    <%= csrf_meta_tags %>
+  </head>
+  <body>
+    <div class="navbar-wrapper">
+      <div class="container">
+        <%= render 'layouts/nav' %>
+      </div>
+    </div>
 
-<%= link_to 'Bookings', bookings_path %>
-<%= link_to 'Customers', customers_path %>
-<%= link_to 'Cleaners', cleaners_path %>
-<hr>
+    <%= yield %>
 
-<%= yield %>
-
-</body>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  </body>
 </html>

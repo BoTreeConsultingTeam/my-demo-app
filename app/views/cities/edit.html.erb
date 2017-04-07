@@ -1,0 +1,9 @@
+<div class="container">
+  <ol class="breadcrumb">
+    <li><%= link_to "Home Work", root_path %></li>
+    <li><%= link_to "Cities", cities_path %></li>
+    <li class="active">Edit <%= @city.name %></li>
+  </ol>
+  <%= render 'layouts/notice' %>
+  <%= render 'form' %>
+</div>

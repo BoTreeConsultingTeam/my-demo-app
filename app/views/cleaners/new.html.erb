@@ -1,5 +1,9 @@
-<h1>New Cleaner</h1>
-
-<%= render 'form' %>
-
-<%= link_to 'Back', cleaners_path %>
+<div class="container">
+  <ol class="breadcrumb">
+    <li><%= link_to "Home Work", root_path %></li>
+    <li><%= link_to "Cleaners", cleaners_path %></li>
+    <li class="active">New Cleaner</li>
+  </ol>
+  <%= render 'layouts/notice' %>
+  <%= render 'form' %>
+</div>

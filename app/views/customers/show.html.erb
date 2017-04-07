@@ -1,19 +1,32 @@
-<p id="notice"><%= notice %></p>
+<div class="container">
+  <ol class="breadcrumb">
+    <li><%= link_to "Home Work", root_path %></li>
+    <% if current_admin %>
+      <li><%= link_to "Customers", customers_path %></li>
+      <li class="active">Customer Details</li>
+    <% else %>
+      <li class="active">Customer Details</li>
+    <% end %>
+  </ol>
+  <%= render 'layouts/notice' %>
 
-<p>
-  <strong>First name:</strong>
-  <%= @customer.first_name %>
-</p>
+  <div class="jumbotron">
+    <strong><h2>Customer Details</h2></strong><br>
 
-<p>
-  <strong>Last name:</strong>
-  <%= @customer.last_name %>
-</p>
+    <p>
+      <strong>First name:</strong>
+      <%= @customer.first_name %>
+    </p>
 
-<p>
-  <strong>Phone number:</strong>
-  <%= @customer.phone_number %>
-</p>
+    <p>
+      <strong>Last name:</strong>
+      <%= @customer.last_name %>
+    </p>
 
-<%= link_to 'Edit', edit_customer_path(@customer) %> |
-<%= link_to 'Back', customers_path %>
+    <p>
+      <strong>Phone number:</strong>
+      <%= @customer.phone_number %>
+    </p>
+
+  </div>
+</div>

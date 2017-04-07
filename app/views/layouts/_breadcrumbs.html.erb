@@ -1,0 +1,23 @@
+
+<ol class="breadcrumb">
+  <%- if controller_name == 'bookings' %>
+    <li><%= link_to "Home Work", root_path %></li>
+    <li class="active">Bookings</li>
+  <% end -%>
+
+
+  <%- if controller_name == 'customers/new' %>
+    <li><%= link_to "Home Work", root_path %></li>
+    <%- if current_admin %>
+      <li><%= link_to "Customers", customers_path %></li>
+    <% end -%>
+    <li class="active">Customer Sign Up & Schedule</li>
+  <% end -%>
+
+  <%- if controller_name == 'customers' %>
+  <li><%= link_to "Home Work", root_path %></li>
+  <li class="active">Customers</li>
+  <p class="pull-right text-white"><%= link_to "New Customer",new_customer_path, class: "btn btn-success btn-xs" %></p>
+  <% end -%>
+
+</ol>

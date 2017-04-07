@@ -1,10 +1,11 @@
 class CleanersController < ApplicationController
   before_action :set_cleaner, only: [:show, :edit, :update, :destroy]
 
+  before_action :authenticate_admin!, except: [:confirm_token]
   # GET /cleaners
   # GET /cleaners.json
   def index
-    @cleaners = Cleaner.all
+    @cleaners = Cleaner.all_cleaner
   end
 
   # GET /cleaners/1
@@ -25,15 +26,41 @@ class CleanersController < ApplicationController
   # POST /cleaners.json
   def create
     @cleaner = Cleaner.new(cleaner_params)
-
+    @cleaner.confirm_token = SecureRandom.hex(32)
     respond_to do |format|
       if @cleaner.save
+
+        # Use to add all cities of cleaner where he/she work
+        add_cities(@cleaner.id)
+
+        UserEmail.confirm_email(@cleaner).deliver_now
+
         format.html { redirect_to @cleaner, notice: 'Cleaner was successfully created.' }
         format.json { render :show, status: :created, location: @cleaner }
       else
         format.html { render :new }
         format.json { render json: @cleaner.errors, status: :unprocessable_entity }
       end
+    end
+  end
+
+  def confirm_token
+    @cleaner = Cleaner.find_by(confirm_token: params[:token])
+    if @cleaner
+      @cleaner.update!(email_confirmed: true, confirm_token: nil)
+      respond_to do |format|
+        format.html { redirect_to 'confirm_token', notice: "Confirmation Completed" }
+      end
+    end
+  end
+
+  def confirmed
+  end
+
+  def add_cities(cleaner_id)
+    city_ids = params[:cleaner][:city_ids]
+    city_ids.each do |city|
+      CleanersCity.create!(city_id: city, cleaner_id: cleaner_id) unless city.blank?
     end
   end
 
@@ -69,6 +96,6 @@ class CleanersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def cleaner_params
-      params.require(:cleaner).permit(:first_name, :last_name, :quality_score)
+      params.require(:cleaner).permit(:first_name, :last_name, :quality_score, :city_ids, :email)
     end
 end

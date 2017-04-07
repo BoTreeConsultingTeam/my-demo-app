@@ -38,4 +38,30 @@ Rails.application.configure do
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
+
+  # Use to send mail through SMTP
+  config.action_mailer.delivery_method = :smtp
+
+  # Define default URL option
+  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+
+  # Set perform deliveries
+  config.action_mailer.perform_deliveries = true
+
+  # configure e-mail smtp
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.default_url_options = { host: 'localhost:3000' }
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    user_name:      'rms.at.help@gmail.com',
+    password:       'rms@1234',
+    domain:         'www.gmail.com',
+    address:        'smtp.gmail.com',
+    port:           '587',
+    authentication: :plain,
+    enable_starttls_auto: true
+  }
+
+
 end

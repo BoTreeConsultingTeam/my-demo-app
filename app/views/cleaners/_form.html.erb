@@ -1,29 +1,56 @@
-<%= form_for(@cleaner) do |f| %>
-  <% if @cleaner.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@cleaner.errors.count, "error") %> prohibited this cleaner from being saved:</h2>
+<div class="form-horizontal">
+  <div class="text-center">
+    <%= form_for(@cleaner) do |f| %>
+      <% if @cleaner.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@cleaner.errors.count, "error") %> prohibited this cleaner from being saved:</h2>
 
-      <ul>
-      <% @cleaner.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
+          <ul>
+          <% @cleaner.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+          </ul>
+        </div>
       <% end %>
-      </ul>
-    </div>
-  <% end %>
 
-  <div class="field">
-    <%= f.label :first_name %><br>
-    <%= f.text_field :first_name %>
+      <div class="form-group">
+        <%= f.label :Works_in, class: "col-sm-offset-2 col-sm-2 control-label" %>
+        <div class="col-sm-5">
+          <%= collection_check_boxes(:cleaner, :city_ids, City.Active, :id, :name)  %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :email, class: "col-sm-offset-2 col-sm-2 control-label" %>
+        <div class="col-sm-5">
+          <%= f.email_field :email, class: "form-control", placeholder: "E-mail Address" %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :first_name, class: "col-sm-offset-2 col-sm-2 control-label" %>
+        <div class="col-sm-5">
+          <%= f.text_field :first_name, class: "form-control", placeholder: "First Name" %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :last_name, class: "col-sm-offset-2 col-sm-2 control-label" %>
+        <div class="col-sm-5">
+          <%= f.text_field :last_name, class: "form-control", placeholder: "Last Name" %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :quality_score, class: "col-sm-offset-2 col-sm-2 control-label" %>
+        <div class="col-sm-5">
+          <%= f.text_field :quality_score, class: "form-control", placeholder: "Quality Score" %>
+        </div>
+      </div>
+
+      <div class="actions">
+        <%= f.submit "Save", class: "btn btn-primary"  %>
+      </div>
+    <% end %>
   </div>
-  <div class="field">
-    <%= f.label :last_name %><br>
-    <%= f.text_field :last_name %>
-  </div>
-  <div class="field">
-    <%= f.label :quality_score %><br>
-    <%= f.text_field :quality_score %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+</div>
